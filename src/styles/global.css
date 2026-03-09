@@ -16,7 +16,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100%;
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 body {
@@ -24,6 +24,7 @@ body {
   color: var(--text-0);
   font-family: 'Space Grotesk', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial,
     sans-serif;
+  -webkit-text-size-adjust: 100%;
 }
 
 a {
@@ -90,7 +91,7 @@ dd {
   z-index: 30;
   background: rgba(4, 7, 11, 0.9);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 .site-header-inner {
@@ -284,7 +285,7 @@ dd {
 .full-bleed {
   width: 100vw;
   margin-left: calc(50% - 50vw);
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 .section-kicker {
@@ -298,6 +299,7 @@ dd {
 .hero-stage {
   position: relative;
   min-height: min(88vh, 960px);
+  min-height: min(88svh, 960px);
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -1943,6 +1945,11 @@ dd {
 }
 
 @media (max-width: 900px) {
+  .full-bleed {
+    width: 100%;
+    margin-left: 0;
+  }
+
   .site-header-inner {
     grid-template-columns: 1fr auto;
     gap: 10px;
@@ -2075,6 +2082,7 @@ dd {
 
   .hero-stage {
     min-height: 78vh;
+    min-height: 78svh;
   }
 
   .hero-inner {
@@ -2114,6 +2122,13 @@ dd {
 
   .support-search-shell button {
     width: 100%;
+  }
+
+  .support-search-shell input,
+  .support-article-search,
+  .waitlist-field input,
+  .waitlist-field textarea {
+    font-size: 16px;
   }
 
   .support-search-area {
