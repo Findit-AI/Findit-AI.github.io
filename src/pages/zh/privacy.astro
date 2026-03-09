@@ -1,0 +1,82 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+
+const locale = 'zh';
+const lastUpdated = '2026年3月9日';
+---
+
+<MainLayout locale={locale} title="FinDIT | 隐私政策">
+  <article class="legal-shell">
+    <header>
+      <h1>隐私政策</h1>
+      <p class="legal-meta">最后更新：{lastUpdated}</p>
+    </header>
+
+    <p class="legal-intro">
+      本隐私政策说明 FinDIT 会收集哪些信息、如何使用这些信息，以及你如何联系我们。FinDIT 目前由独立产品团队运营，暂未完成公司实体注册。
+    </p>
+
+    <div class="legal-body">
+      <section>
+        <h2>1. 我们收集的信息</h2>
+        <ul>
+          <li>你提交候补名单时提供的信息，包括邮箱和页面语言（如 <code>en</code>、<code>zh</code>）。</li>
+          <li>你自愿填写的可选信息，例如姓名、角色、使用场景。</li>
+          <li>用于安全与防滥用的基础技术日志，例如 IP、浏览器和请求元数据。</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>2. 我们如何使用信息</h2>
+        <ul>
+          <li>管理候补名单、内测开通通知和产品更新沟通。</li>
+          <li>按语言发送匹配内容，减少无关邮件打扰。</li>
+          <li>保障 FinDIT 服务的运行、维护与安全。</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>3. 第三方服务与基础设施</h2>
+        <p>我们会使用第三方服务完成核心流程，包括但不限于：</p>
+        <ul>
+          <li>Supabase（业务数据存储）。</li>
+          <li>Resend（联系人管理与邮件投递）。</li>
+          <li>网站托管服务提供商。</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>4. 数据保存期限</h2>
+        <p>
+          我们只在业务运营、安全、合规及合理商业需要范围内保留候补和沟通数据；在不再需要时，可能删除或匿名化相关记录。
+        </p>
+      </section>
+
+      <section>
+        <h2>5. 你的选择与权利</h2>
+        <ul>
+          <li>你可以请求访问、更正或删除候补名单相关数据。</li>
+          <li>你可以通过邮件中的退订入口随时停止接收更新。</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>6. 未成年人</h2>
+        <p>FinDIT 不面向 13 岁以下儿童，我们也不会有意收集 13 岁以下儿童的个人信息。</p>
+      </section>
+
+      <section>
+        <h2>7. 政策更新</h2>
+        <p>随着产品与基础设施变化，我们可能更新本政策；最新版本将发布在本页并更新日期。</p>
+      </section>
+
+      <section>
+        <h2>8. 联系方式</h2>
+        <p>
+          如对隐私或数据处理有疑问，请发送邮件至
+          <a href="mailto:support@findit.studio">support@findit.studio</a>。
+        </p>
+      </section>
+    </div>
+  </article>
+</MainLayout>

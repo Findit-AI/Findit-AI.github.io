@@ -1,0 +1,89 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+const locale = 'en';
+const lastUpdated = 'March 9, 2026';
+---
+
+<MainLayout locale={locale} title="FinDIT | Privacy Policy">
+  <article class="legal-shell">
+    <header>
+      <h1>Privacy Policy</h1>
+      <p class="legal-meta">Last updated: {lastUpdated}</p>
+    </header>
+
+    <p class="legal-intro">
+      This Privacy Policy explains what information FinDIT collects, how we use it, and how you can contact us.
+      FinDIT is currently operated by an independent product team and is not yet registered as a legal company
+      entity.
+    </p>
+
+    <div class="legal-body">
+      <section>
+        <h2>1. Information We Collect</h2>
+        <ul>
+          <li>Waitlist information you submit, including email and page language (such as <code>en</code> or <code>zh</code>).</li>
+          <li>Optional form details you provide voluntarily, such as name, role, and use case.</li>
+          <li>Basic technical logs (for example IP, browser, and request metadata) used for security and abuse prevention.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>2. How We Use Information</h2>
+        <ul>
+          <li>To manage waitlist access, onboarding communication, and product updates.</li>
+          <li>To send language-matched emails and reduce irrelevant communication.</li>
+          <li>To operate, maintain, and secure FinDIT services.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>3. Processors and Infrastructure</h2>
+        <p>We use third-party service providers to run core workflows, including:</p>
+        <ul>
+          <li>Supabase for operational data storage.</li>
+          <li>Resend for contact management and email delivery.</li>
+          <li>Hosting platforms used to deliver the website.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>4. Data Retention</h2>
+        <p>
+          We keep waitlist and communication records only as long as necessary for product operations, security,
+          compliance, and legitimate business needs. We may delete or anonymize records when they are no longer needed.
+        </p>
+      </section>
+
+      <section>
+        <h2>5. Your Choices</h2>
+        <ul>
+          <li>You can request access, correction, or deletion of your waitlist data.</li>
+          <li>You can unsubscribe from email updates at any time through the link in our emails.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>6. Children</h2>
+        <p>
+          FinDIT is not directed to children under 13, and we do not knowingly collect personal data from children under 13.
+        </p>
+      </section>
+
+      <section>
+        <h2>7. Changes to This Policy</h2>
+        <p>
+          We may update this Privacy Policy as our product and infrastructure evolve. The latest version will always be
+          posted on this page with an updated date.
+        </p>
+      </section>
+
+      <section>
+        <h2>8. Contact</h2>
+        <p>
+          Questions about privacy or data handling can be sent to <a href="mailto:support@findit.studio">support@findit.studio</a>.
+        </p>
+      </section>
+    </div>
+  </article>
+</MainLayout>
