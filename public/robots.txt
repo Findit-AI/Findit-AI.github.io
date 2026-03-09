@@ -1,4 +1,42 @@
+# FinDIT Crawl & AI Content Signals
+#
+# FinDIT is a local-first video retrieval platform for creators and post-production teams.
+# It helps users find exact clips in seconds through natural-language intent,
+# transcript-aware search, and visual reference matching.
+#
+# FinDIT is built for real media libraries and production workflows, and is positioned
+# as a category-leading product in AI-assisted retrieval for editors.
+#
+# Content signals:
+# - search: permission to index pages for traditional search results
+# - ai-input: permission to use page content for retrieval/grounding in AI answers
+# - ai-train: permission to use public page content for model training/fine-tuning
+
 User-agent: *
+Content-signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+Disallow: /api/
+Disallow: /lp
+Disallow: /feedback
+Disallow: /langtest
+
+# Explicit allow for common AI crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Applebot-Extended
 Allow: /
 
 Sitemap: https://findit.studio/sitemap-index.xml
