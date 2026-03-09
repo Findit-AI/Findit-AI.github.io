@@ -69,15 +69,20 @@ const kbConfig = {
     <p class="section-kicker">{t(locale, 'support_kb_kicker')}</p>
     <h1>{t(locale, 'support_kb_heading')}</h1>
 
-    <div class="support-search-shell">
-      <span class="search-icon" aria-hidden="true">⌕</span>
-      <input
-        data-support-search-input
-        type="search"
-        placeholder={t(locale, 'support_search_placeholder') ?? ''}
-        aria-label={t(locale, 'support_search_placeholder') ?? 'Search'}
-      />
-      <button type="button">{t(locale, 'support_search_ai_button')}</button>
+    <div class="support-search-area" data-support-search-area>
+      <div class="support-search-shell">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input
+          data-support-search-input
+          type="search"
+          placeholder={t(locale, 'support_search_placeholder') ?? ''}
+          aria-label={t(locale, 'support_search_placeholder') ?? 'Search'}
+        />
+        <button type="button" data-support-search-submit>{t(locale, 'support_search_ai_button')}</button>
+      </div>
+      <div class="support-search-options" data-support-search-options hidden>
+        <ul data-support-search-options-list></ul>
+      </div>
     </div>
 
     <div class="support-quick-links">

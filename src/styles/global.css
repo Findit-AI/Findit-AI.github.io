@@ -16,6 +16,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -89,6 +90,7 @@ dd {
   z-index: 30;
   background: rgba(4, 7, 11, 0.9);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  overflow-x: clip;
 }
 
 .site-header-inner {
@@ -105,6 +107,29 @@ dd {
   text-decoration: none;
   font-weight: 700;
   letter-spacing: 0.09em;
+}
+
+.mobile-nav-toggle {
+  display: none;
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+  width: 42px;
+  height: 36px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.mobile-nav-toggle span {
+  width: 18px;
+  height: 1.5px;
+  background: var(--text-0);
+  border-radius: 999px;
 }
 
 .main-nav {
@@ -259,6 +284,7 @@ dd {
 .full-bleed {
   width: 100vw;
   margin-left: calc(50% - 50vw);
+  overflow-x: clip;
 }
 
 .section-kicker {
@@ -687,6 +713,7 @@ dd {
 .support-kb-hero-inner {
   display: grid;
   gap: 18px;
+  position: relative;
 }
 
 .support-kb-hero h1 {
@@ -841,6 +868,12 @@ dd {
   font-size: 13px;
 }
 
+.support-search-area {
+  width: min(760px, 100%);
+  display: grid;
+  gap: 8px;
+}
+
 .support-search-shell {
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 18px;
@@ -878,12 +911,65 @@ dd {
 
 .support-search-shell button {
   border: 1px solid rgba(255, 255, 255, 0.22);
-  background: rgba(101, 151, 233, 0.2);
+  background: rgba(255, 255, 255, 0.06);
   color: var(--text-0);
   border-radius: 12px;
   padding: 10px 14px;
   font-family: inherit;
   font-size: 14px;
+  cursor: pointer;
+}
+
+.support-search-options {
+  width: min(760px, 100%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(9, 13, 18, 0.96), rgba(6, 9, 14, 0.98));
+  overflow: hidden;
+}
+
+.support-search-options[hidden] {
+  display: none;
+}
+
+.support-search-options ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+
+.support-search-option {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
+  text-align: left;
+  color: var(--text-0);
+  font: inherit;
+  padding: 12px 14px;
+  display: grid;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.support-search-options li:last-child .support-search-option {
+  border-bottom: none;
+}
+
+.support-search-option strong {
+  font-size: 14px;
+}
+
+.support-search-option span {
+  color: var(--text-1);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.support-search-option:hover,
+.support-search-option:focus-visible {
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .support-quick-links {
@@ -1858,28 +1944,64 @@ dd {
 
 @media (max-width: 900px) {
   .site-header-inner {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr auto;
     gap: 10px;
     padding: 12px 0;
   }
 
-  .brand-link,
+  .brand-link {
+    justify-self: start;
+    align-self: center;
+  }
+
+  .mobile-nav-toggle {
+    display: inline-flex;
+    justify-self: end;
+    align-self: center;
+  }
+
   .main-nav,
   .lang-switch {
+    display: none;
+    grid-column: 1 / -1;
     justify-self: start;
   }
 
-  .main-nav {
-    justify-content: flex-start;
+  .site-header.is-menu-open .main-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+    padding-top: 8px;
+  }
+
+  .site-header.is-menu-open .lang-switch {
+    display: flex;
+    padding-bottom: 6px;
+  }
+
+  .site-header.is-menu-open .nav-link {
+    width: fit-content;
   }
 
   .nav-dropdown-panel {
-    left: 0;
+    position: static;
     transform: none;
-    width: min(760px, calc(100vw - 36px));
+    width: 100%;
+    margin-top: 6px;
+    display: none;
+    opacity: 1;
+    pointer-events: auto;
+    box-shadow: none;
   }
 
-  .nav-dropdown-grid {
+  .site-header.is-menu-open .nav-dropdown.is-open .nav-dropdown-panel {
+    display: block;
+  }
+
+  .nav-dropdown-grid,
+  .nav-dropdown-grid.is-single {
     grid-template-columns: 1fr;
   }
 
@@ -1991,6 +2113,14 @@ dd {
   }
 
   .support-search-shell button {
+    width: 100%;
+  }
+
+  .support-search-area {
+    width: 100%;
+  }
+
+  .support-search-options {
     width: 100%;
   }
 

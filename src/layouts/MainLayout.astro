@@ -106,11 +106,22 @@ const resourcesActive = isActive('/resources');
     <link rel="preload" href={instrumentSerif400} as="font" type="font/woff2" crossorigin="anonymous" />
   </head>
   <body>
-    <header class="site-header">
+    <header class="site-header" data-site-header>
       <div class="site-header-inner">
         <a class="brand-link" href={localizePath(locale, '/')}>{t(locale, 'brand_name') ?? 'FinDIT'}</a>
+        <button
+          class="mobile-nav-toggle"
+          type="button"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          data-mobile-nav-toggle
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
 
-        <nav class="main-nav" aria-label="Primary">
+        <nav class="main-nav" aria-label="Primary" data-primary-nav>
           <a class:list={['nav-link', isActive('/') && 'is-active']} href={localizePath(locale, '/')}>
             {t(locale, 'nav_home') ?? 'Home'}
           </a>
@@ -170,7 +181,7 @@ const resourcesActive = isActive('/resources');
           </a>
         </nav>
 
-        <div class="lang-switch" aria-label="Language switcher">
+        <div class="lang-switch" aria-label="Language switcher" data-lang-switch>
           <span>{t(locale, 'nav_language') ?? 'Language'}</span>
           <a href={localizePath('en', basePath)}>EN</a>
           <span>/</span>
@@ -263,7 +274,27 @@ const resourcesActive = isActive('/resources');
 
     <script is:inline>
       (() => {
+        const siteHeader = document.querySelector('[data-site-header]');
+        const mobileNavToggle = document.querySelector('[data-mobile-nav-toggle]');
+        const primaryNav = document.querySelector('[data-primary-nav]');
+
         const dropdowns = document.querySelectorAll('[data-nav-dropdown]');
+        const closeMobileMenu = () => {
+          if (!(siteHeader instanceof HTMLElement) || !(mobileNavToggle instanceof HTMLButtonElement)) return;
+          siteHeader.classList.remove('is-menu-open');
+          mobileNavToggle.setAttribute('aria-expanded', 'false');
+          dropdowns.forEach((dropdown) => {
+            dropdown.classList.remove('is-open');
+            const trigger = dropdown.querySelector('[data-nav-dropdown-trigger]');
+            if (trigger) trigger.setAttribute('aria-expanded', 'false');
+          });
+        };
+
+        const openMobileMenu = () => {
+          if (!(siteHeader instanceof HTMLElement) || !(mobileNavToggle instanceof HTMLButtonElement)) return;
+          siteHeader.classList.add('is-menu-open');
+          mobileNavToggle.setAttribute('aria-expanded', 'true');
+        };
 
         const closeAll = () => {
           dropdowns.forEach((dropdown) => {
@@ -292,13 +323,47 @@ const resourcesActive = isActive('/resources');
           const target = event.target;
           if (!(target instanceof Node)) return;
 
+          if (siteHeader instanceof HTMLElement && !siteHeader.contains(target)) {
+            closeMobileMenu();
+          }
+
           const insideDropdown = [...dropdowns].some((dropdown) => dropdown.contains(target));
           if (!insideDropdown) closeAll();
         });
 
         document.addEventListener('keydown', (event) => {
-          if (event.key === 'Escape') closeAll();
+          if (event.key === 'Escape') {
+            closeAll();
+            closeMobileMenu();
+          }
         });
+
+        if (mobileNavToggle instanceof HTMLButtonElement && siteHeader instanceof HTMLElement) {
+          mobileNavToggle.addEventListener('click', () => {
+            const isOpen = siteHeader.classList.contains('is-menu-open');
+            if (isOpen) {
+              closeMobileMenu();
+            } else {
+              openMobileMenu();
+            }
+          });
+
+          if (primaryNav instanceof HTMLElement) {
+            primaryNav.addEventListener('click', (event) => {
+              const target = event.target;
+              if (!(target instanceof HTMLElement)) return;
+              const link = target.closest('a');
+              if (!link) return;
+              closeMobileMenu();
+            });
+          }
+
+          window.addEventListener('resize', () => {
+            if (window.innerWidth > 900) {
+              closeMobileMenu();
+            }
+          });
+        }
 
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
           return;
