@@ -6,6 +6,7 @@ interface Props {
 }
 
 const { locale } = Astro.props as Props;
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
 ---
 
 <section class="content-limit waitlist-page reveal">
@@ -24,7 +25,6 @@ const { locale } = Astro.props as Props;
           name="name"
           placeholder={t(locale, 'waitlist_form_name_placeholder') ?? ''}
           autocomplete="name"
-          required
         />
       </label>
 
@@ -59,9 +59,25 @@ const { locale } = Astro.props as Props;
       </label>
 
       <div class="waitlist-actions waitlist-field-wide">
+        <input
+          type="text"
+          name="website"
+          tabindex="-1"
+          autocomplete="off"
+          aria-hidden="true"
+          class="waitlist-honeypot"
+        />
+        {
+          turnstileSiteKey ? (
+            <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="dark"></div>
+          ) : null
+        }
         <button type="submit" class="btn btn-primary">{t(locale, 'waitlist_form_submit')}</button>
         <p class="waitlist-success" data-waitlist-success role="status" aria-live="polite" hidden>
           {t(locale, 'waitlist_form_success')}
+        </p>
+        <p class="waitlist-error" data-waitlist-error role="status" aria-live="polite" hidden>
+          {t(locale, 'waitlist_form_error', false) ?? 'Submit failed. Please retry in a moment.'}
         </p>
       </div>
     </form>
@@ -74,11 +90,68 @@ const { locale } = Astro.props as Props;
     if (!(form instanceof HTMLFormElement)) return;
 
     const success = form.querySelector('[data-waitlist-success]');
-    form.addEventListener('submit', (event) => {
+    const error = form.querySelector('[data-waitlist-error]');
+    const submitButton = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (!form.reportValidity()) return;
-      if (success instanceof HTMLElement) success.hidden = false;
-      form.dataset.submitted = 'true';
+
+      const email = (form.querySelector('input[name="email"]') as HTMLInputElement | null)?.value?.trim() ?? '';
+      const name = (form.querySelector('input[name="name"]') as HTMLInputElement | null)?.value?.trim() ?? '';
+      const role = (form.querySelector('input[name="role"]') as HTMLInputElement | null)?.value?.trim() ?? '';
+      const useCase = (form.querySelector('textarea[name="useCase"]') as HTMLTextAreaElement | null)?.value?.trim() ?? '';
+      const website = (form.querySelector('input[name="website"]') as HTMLInputElement | null)?.value ?? '';
+      const turnstileToken =
+        (form.querySelector('input[name="cf-turnstile-response"]') as HTMLInputElement | null)?.value ?? '';
+
+      const sourcePath = window.location.pathname || '/';
+      const language = sourcePath.startsWith('/zh') ? 'zh' : sourcePath.startsWith('/ja') ? 'ja' : 'en';
+
+      if (success instanceof HTMLElement) success.hidden = true;
+      if (error instanceof HTMLElement) error.hidden = true;
+      if (submitButton instanceof HTMLButtonElement) submitButton.disabled = true;
+
+      try {
+        const response = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email,
+            name,
+            role,
+            useCase,
+            language,
+            sourcePath,
+            website,
+            turnstileToken,
+          }),
+        });
+
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok || !payload?.ok) throw new Error(payload?.error || 'submit failed');
+
+        form.dataset.submitted = 'true';
+        form.reset();
+
+        if (success instanceof HTMLElement) success.hidden = false;
+        if (error instanceof HTMLElement) error.hidden = true;
+
+        const turnstile = window.turnstile;
+        if (turnstile && typeof turnstile.reset === 'function') {
+          turnstile.reset();
+        }
+      } catch {
+        if (error instanceof HTMLElement) error.hidden = false;
+      } finally {
+        if (submitButton instanceof HTMLButtonElement) submitButton.disabled = false;
+      }
     });
   })();
 </script>
+
+{
+  turnstileSiteKey ? (
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  ) : null
+}

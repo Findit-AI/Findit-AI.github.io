@@ -65,6 +65,7 @@ export const dictionaries = {
     waitlist_form_use_case_placeholder: 'What will you use FinDIT for?',
     waitlist_form_submit: 'Signup for Waitlist',
     waitlist_form_success: "Thanks, you're on the list. We'll contact you soon.",
+    waitlist_form_error: 'Submit failed. Please retry in a moment.',
 
     home_feature_title: 'Built for real editing workflows',
     home_feature_subtitle:
@@ -219,7 +220,7 @@ export const dictionaries = {
       'Verify domain policy, sender setup, and fallback invite paths.',
     support_article_title_plans_and_billing: 'Plans and Billing',
     support_article_summary_plans_and_billing:
-      'Compare Free, Trial, and Pro plans and understand what changes when you upgrade.',
+      'Compare Free and Pro, and understand how the Trial evaluation window fits the upgrade flow.',
     support_article_title_privacy_and_data: 'Privacy and Data Handling',
     support_article_summary_privacy_and_data:
       'Understand what stays local, when cloud calls happen, and how to control that boundary.',
@@ -319,6 +320,7 @@ export const dictionaries = {
     waitlist_form_use_case_placeholder: '你会用 FinDIT 解决什么问题？',
     waitlist_form_submit: '加入候补名单',
     waitlist_form_success: '提交成功，你已加入候补名单。我们会尽快联系你。',
+    waitlist_form_error: '提交失败，请稍后重试。',
 
     home_feature_title: '为真实剪辑流程而生',
     home_feature_subtitle: '从素材入库到时间线交付，FinDIT 让检索始终高速、本地、可投入生产。',
@@ -456,7 +458,7 @@ export const dictionaries = {
     support_article_title_invite_delivery: '邀请邮件未送达成员',
     support_article_summary_invite_delivery: '检查域名策略、发送配置与替代邀请路径。',
     support_article_title_plans_and_billing: '套餐与计费',
-    support_article_summary_plans_and_billing: '对比 Free、Trial、Pro 方案，并了解升级后的变化。',
+    support_article_summary_plans_and_billing: '对比 Free 与 Pro，并了解 Trial 评估窗口在升级流程中的作用。',
     support_article_title_privacy_and_data: '隐私与数据处理',
     support_article_summary_privacy_and_data: '明确哪些数据始终本地、何时触发云端调用，以及如何控制边界。',
     support_article_title_supported_formats: '支持的格式',

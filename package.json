@@ -20,8 +20,12 @@
     "@astrojs/sitemap": "^3.7.0",
     "@fontsource/instrument-serif": "^5.2.8",
     "@fontsource/space-grotesk": "^5.2.10",
+    "@supabase/supabase-js": "^2.98.0",
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.36.4",
     "astro": "^5.17.1",
-    "gray-matter": "^4.0.3"
+    "gray-matter": "^4.0.3",
+    "resend": "^6.9.3"
   },
   "devDependencies": {
     "vitest": "^4.0.18"

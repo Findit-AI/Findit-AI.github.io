@@ -1250,6 +1250,20 @@ dd {
   font-size: 14px;
 }
 
+.waitlist-error {
+  color: #f1b0b0;
+  font-size: 14px;
+}
+
+.waitlist-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .blog-index-shell {
   width: min(1180px, 100%);
   margin: 0 auto;

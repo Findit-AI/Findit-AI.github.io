@@ -14,11 +14,27 @@ pnpm-debug.log*
 
 
 # environment variables
-.env
-.env.production
+.env*
+!.env.example
 
 # macOS-specific files
 .DS_Store
+.DS_Store?
+._*
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+.fseventsd
+.DocumentRevisions-V100
+.TemporaryItems
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
 
 # jetbrains setting folder
 .idea/

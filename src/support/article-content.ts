@@ -321,8 +321,8 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
           title: 'Plan Snapshot',
           points: [
             'Free: local indexing and core search, no cloud budget.',
-            'Trial: 14 days with limited cloud enhancement budget.',
             'Pro: ongoing cloud enhancement with higher monthly budget.',
+            'Trial: a 14-day evaluation window used before moving to Pro.',
           ],
         },
         {
@@ -342,8 +342,8 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
           title: '套餐概览',
           points: [
             'Free：本地索引与核心检索，无云端预算。',
-            'Trial：14 天试用，提供受控云端增强预算。',
             'Pro：持续云端增强与更高月度预算。',
+            'Trial：14 天评估窗口，用于进入 Pro 前的效果验证。',
           ],
         },
         {

@@ -1,6 +1,6 @@
 ---
 import { localizePath, t, type Locale } from '../i18n/runtime';
-import { getPricingAmountCents, getPricingPlans, type PlanId } from '../pricing/plans';
+import { getPricingAmountCents, getPrimaryPricingPlans, type PlanId } from '../pricing/plans';
 
 interface Props {
   locale: Locale;
@@ -47,7 +47,7 @@ function formatCents(amount: number): string {
   return currencyFormatter.format(amount / 100);
 }
 
-const plans = getPricingPlans().map((plan) => {
+const plans = getPrimaryPricingPlans().map((plan) => {
   const monthlyAmount = getPricingAmountCents(plan.id, 'monthly');
   const yearlyAmount = getPricingAmountCents(plan.id, 'yearly');
   const monthlyLabel = monthlyAmount === 0 ? t(locale, 'pricing_price_free') ?? 'Free' : formatCents(monthlyAmount);
