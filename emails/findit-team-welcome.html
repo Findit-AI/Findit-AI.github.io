@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light only" />
+    <meta name="supported-color-schemes" content="light only" />
+    <title>{{emailTitle}}</title>
+    <style>
+      body,
+      table,
+      td,
+      a {
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+      table,
+      td {
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+      }
+      img {
+        -ms-interpolation-mode: bicubic;
+        border: 0;
+        outline: none;
+        text-decoration: none;
+      }
+      table {
+        border-collapse: collapse !important;
+      }
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        background-color: #f3f1ee;
+      }
+      @media screen and (max-width: 640px) {
+        .container {
+          width: 100% !important;
+        }
+        .shell {
+          padding: 20px !important;
+        }
+        .headline {
+          font-size: 28px !important;
+          line-height: 34px !important;
+        }
+      }
+    </style>
+  </head>
+  <body style="margin: 0; padding: 0; background-color: #f3f1ee;">
+    <div style="display: none; max-height: 0; overflow: hidden; opacity: 0; color: transparent;">
+      {{preheaderText}}
+    </div>
+
+    <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #f3f1ee;">
+      <tr>
+        <td align="center" style="padding: 40px 12px;">
+          <table role="presentation" width="620" border="0" cellspacing="0" cellpadding="0" class="container" style="width: 620px; max-width: 620px;">
+            <tr>
+              <td style="padding: 0 0 16px 0; text-align: center;">
+                <p style="margin: 0; font-size: 12px; letter-spacing: 1.8px; color: #6d655c; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; text-transform: uppercase;">
+                  {{brandName}}
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="background: linear-gradient(145deg, #101010 0%, #1a1a1a 48%, #2a2a2a 100%); border-radius: 22px; overflow: hidden; box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);">
+                <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td class="shell" style="padding: 40px 44px 36px 44px;">
+                      <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <td align="left" style="padding-bottom: 30px;">
+                            <img src="{{logoUrl}}" width="54" height="54" alt="{{brandName}}" style="display: block; width: 54px; height: 54px; border-radius: 10px; background-color: #ffffff;" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <p style="margin: 0 0 14px 0; font-size: 12px; letter-spacing: 1.8px; color: #d3c7b6; text-transform: uppercase; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+                              {{kicker}}
+                            </p>
+                            <h1 class="headline" style="margin: 0 0 18px 0; font-size: 38px; line-height: 44px; color: #f8f3ea; font-family: Georgia, 'Times New Roman', serif; font-weight: 500;">
+                              {{headline}}
+                            </h1>
+                            <p style="margin: 0 0 18px 0; font-size: 17px; line-height: 29px; color: #e8dfd2; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+                              {{bodyLine1}}
+                            </p>
+                            <p style="margin: 0 0 20px 0; font-size: 16px; line-height: 28px; color: #cdc2b4; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+                              {{bodyLine2}}
+                            </p>
+                            <p style="margin: 0 0 30px 0; font-size: 16px; line-height: 28px; color: #cdc2b4; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+                              {{bodyLine3}}
+                            </p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="padding-bottom: 32px;">
+                            <table role="presentation" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td align="center" bgcolor="#d6b48a" style="border-radius: 999px;">
+                                  <a href="{{ctaUrl}}" target="_blank" style="display: inline-block; padding: 12px 22px; font-size: 13px; letter-spacing: 0.6px; line-height: 14px; text-decoration: none; color: #131313; font-weight: 600; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+                                    {{ctaText}}
+                                  </a>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="border-top: 1px solid rgba(214, 180, 138, 0.36); padding-top: 18px;">
+                            <p style="margin: 0 0 7px 0; font-size: 14px; line-height: 22px; color: #f2e7d8; font-family: Georgia, 'Times New Roman', serif;">
+                              {{signatureName}}
+                            </p>
+                            <p style="margin: 0; font-size: 12px; line-height: 20px; color: #bcae9d; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+                              {{signatureEmail}}
+                            </p>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 16px 14px 0 14px; text-align: center;">
+                <p style="margin: 0; font-size: 11px; line-height: 18px; color: #8d857d; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+                  {{footerNote}}
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

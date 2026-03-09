@@ -1,0 +1,173 @@
+---
+import { localizePath, t, type Locale } from '../i18n/runtime';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props as Props;
+
+const featureCards = [
+  {
+    title: t(locale, 'home_feature_1_title') ?? '',
+    body: t(locale, 'home_feature_1_body') ?? '',
+  },
+  {
+    title: t(locale, 'home_feature_2_title') ?? '',
+    body: t(locale, 'home_feature_2_body') ?? '',
+  },
+  {
+    title: t(locale, 'home_feature_3_title') ?? '',
+    body: t(locale, 'home_feature_3_body') ?? '',
+  },
+];
+
+const demoScenes = [
+  {
+    id: 'signal',
+    name: t(locale, 'home_demo_scene_1_name') ?? 'Signal Stream',
+    summary: t(locale, 'home_demo_scene_1_summary') ?? '',
+    path: 'findit://signal-stream/live',
+    chips: [
+      t(locale, 'home_demo_point_1') ?? '',
+      t(locale, 'home_demo_point_2') ?? '',
+      t(locale, 'home_demo_point_3') ?? '',
+    ],
+    lineWidths: [100, 82, 93, 70, 60],
+    hue: 'red',
+  },
+  {
+    id: 'intent',
+    name: t(locale, 'home_demo_scene_2_name') ?? 'Intent Map',
+    summary: t(locale, 'home_demo_scene_2_summary') ?? '',
+    path: 'findit://intent-map/cluster',
+    chips: [
+      t(locale, 'home_demo_point_2') ?? '',
+      t(locale, 'home_demo_point_3') ?? '',
+      t(locale, 'home_demo_point_1') ?? '',
+    ],
+    lineWidths: [88, 74, 95, 66, 58],
+    hue: 'blue',
+  },
+  {
+    id: 'action',
+    name: t(locale, 'home_demo_scene_3_name') ?? 'Action Queue',
+    summary: t(locale, 'home_demo_scene_3_summary') ?? '',
+    path: 'findit://action-queue/ready',
+    chips: [
+      t(locale, 'home_demo_point_3') ?? '',
+      t(locale, 'home_demo_point_1') ?? '',
+      t(locale, 'home_demo_point_2') ?? '',
+    ],
+    lineWidths: [92, 78, 84, 72, 62],
+    hue: 'violet',
+  },
+];
+
+const firstScene = demoScenes[0];
+const demoConfig = {
+  scenes: demoScenes,
+  stateLabel: t(locale, 'home_demo_scene_state') ?? 'Live Preview',
+};
+---
+
+<section class="full-bleed hero-stage reveal">
+  <div class="hero-beams" aria-hidden="true"></div>
+  <div class="hero-grid" aria-hidden="true"></div>
+
+  <div class="hero-inner content-limit">
+    <p class="section-kicker">{t(locale, 'hero_kicker')}</p>
+
+    <h1 class="hero-display">
+      <span>{t(locale, 'hero_display_line_1')}</span>
+      <span>{t(locale, 'hero_display_line_2')}</span>
+    </h1>
+
+    <p class="hero-subtitle">{t(locale, 'hero_subtitle')}</p>
+
+    <div class="button-row">
+      <a class="btn btn-primary" href={localizePath(locale, '/waitlist')}>{t(locale, 'cta_primary')}</a>
+      <a class="btn btn-secondary" href={localizePath(locale, '/support')}>
+        {t(locale, 'cta_secondary', false) ?? 'Resources'}
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="full-bleed demo-stage reveal">
+  <div class="content-limit demo-wrap">
+    <header class="demo-header">
+      <p class="section-kicker">{t(locale, 'home_demo_title')}</p>
+      <h2>{t(locale, 'home_demo_heading')}</h2>
+      <p>{t(locale, 'home_demo_body')}</p>
+    </header>
+
+    <article class="demo-shell" data-demo-shell>
+      <div class="demo-toolbar">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="demo-path" data-demo-path>{firstScene.path}</span>
+      </div>
+
+      <div class="demo-body">
+        <aside class="demo-sidebar" aria-label="Demo scenarios">
+          {
+            demoScenes.map((scene, index) => (
+              <button
+                class:list={['demo-nav-item', index === 0 && 'active']}
+                data-demo-tab={scene.id}
+                aria-pressed={index === 0 ? 'true' : 'false'}
+                type="button"
+              >
+                {scene.name}
+              </button>
+            ))
+          }
+        </aside>
+
+        <section class="demo-canvas" data-demo-tone={firstScene.hue}>
+          <div class="demo-spotlight"></div>
+          <div class="demo-scene-meta">
+            <strong data-demo-scene-name>{firstScene.name}</strong>
+            <span data-demo-scene-state>{demoConfig.stateLabel}</span>
+          </div>
+          <p class="demo-scene-summary" data-demo-summary>{firstScene.summary}</p>
+          <div class="demo-lines">
+            {firstScene.lineWidths.map((width) => <span style={`width: ${width}%;`}></span>)}
+          </div>
+          <div class="demo-chip-row" data-demo-chip-row>
+            {firstScene.chips.map((chip) => <span>{chip}</span>)}
+          </div>
+        </section>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="content-limit section-block reveal">
+  <header class="section-header">
+    <p class="section-kicker">FinDIT</p>
+    <h2>{t(locale, 'home_feature_title')}</h2>
+    <p>{t(locale, 'home_feature_subtitle')}</p>
+  </header>
+
+  <div class="card-grid">
+    {
+      featureCards.map((card) => (
+        <article class="info-card surface-muted">
+          <h3>{card.title}</h3>
+          <p>{card.body}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<script id="home-demo-config" type="application/json" set:html={JSON.stringify(demoConfig)}></script>
+
+<script>
+  import { setupHomeDemo } from '../scripts/home-demo-bootstrap';
+
+  setupHomeDemo();
+</script>

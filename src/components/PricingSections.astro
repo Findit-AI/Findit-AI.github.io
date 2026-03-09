@@ -1,0 +1,177 @@
+---
+import { localizePath, t, type Locale } from '../i18n/runtime';
+import { getPricingAmountCents, getPricingPlans, type PlanId } from '../pricing/plans';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props as Props;
+
+const localeTag = locale === 'zh' ? 'zh-CN' : 'en-US';
+const currencyFormatter = new Intl.NumberFormat(localeTag, {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2,
+});
+
+const planMeta: Record<
+  PlanId,
+  {
+    titleKey: string;
+    subtitleKey: string;
+    ctaKey: string;
+  }
+> = {
+  free: {
+    titleKey: 'pricing_plan_free_title',
+    subtitleKey: 'pricing_plan_free_subtitle',
+    ctaKey: 'pricing_cta_free',
+  },
+  trial: {
+    titleKey: 'pricing_plan_trial_title',
+    subtitleKey: 'pricing_plan_trial_subtitle',
+    ctaKey: 'pricing_cta_trial',
+  },
+  pro: {
+    titleKey: 'pricing_plan_pro_title',
+    subtitleKey: 'pricing_plan_pro_subtitle',
+    ctaKey: 'pricing_cta_pro',
+  },
+};
+
+const waitlistHref = '#waitlist-signup';
+
+function formatCents(amount: number): string {
+  return currencyFormatter.format(amount / 100);
+}
+
+const plans = getPricingPlans().map((plan) => {
+  const monthlyAmount = getPricingAmountCents(plan.id, 'monthly');
+  const yearlyAmount = getPricingAmountCents(plan.id, 'yearly');
+  const monthlyLabel = monthlyAmount === 0 ? t(locale, 'pricing_price_free') ?? 'Free' : formatCents(monthlyAmount);
+  const yearlyLabel = yearlyAmount === 0 ? t(locale, 'pricing_price_free') ?? 'Free' : formatCents(yearlyAmount);
+  const monthlyPeriod = monthlyAmount === 0 ? t(locale, 'pricing_forever') ?? 'forever' : t(locale, 'pricing_per_month') ?? '/ month';
+  const yearlyPeriod = yearlyAmount === 0 ? t(locale, 'pricing_forever') ?? 'forever' : t(locale, 'pricing_per_year') ?? '/ year';
+
+  return {
+    ...plan,
+    ...planMeta[plan.id],
+    monthlyLabel,
+    yearlyLabel,
+    monthlyPeriod,
+    yearlyPeriod,
+    ctaHref: waitlistHref,
+  };
+});
+---
+
+<section class="full-bleed pricing-hero reveal">
+  <div class="content-limit pricing-hero-inner">
+    <p class="section-kicker">{t(locale, 'pricing_kicker')}</p>
+    <h1>{t(locale, 'pricing_heading')}</h1>
+    <p class="pricing-subtitle">{t(locale, 'pricing_subtitle')}</p>
+
+    <div class="surface-muted pricing-banner">
+      <strong>{t(locale, 'pricing_banner_title')}</strong>
+      <p>{t(locale, 'pricing_banner_body')}</p>
+    </div>
+  </div>
+</section>
+
+<section class="section-block reveal pricing-shell" data-pricing-root data-pricing-cycle="monthly">
+  <div class="pricing-cycle-toggle">
+    <button
+      class="pricing-cycle-btn is-active"
+      data-pricing-cycle-button
+      data-cycle="monthly"
+      type="button"
+    >
+      {t(locale, 'pricing_cycle_monthly')}
+    </button>
+    <button class="pricing-cycle-btn" data-pricing-cycle-button data-cycle="yearly" type="button">
+      {t(locale, 'pricing_cycle_yearly')}
+    </button>
+  </div>
+  <p class="pricing-cycle-note">{t(locale, 'pricing_cycle_note')}</p>
+
+  <div class="pricing-grid">
+    {
+      plans.map((plan) => (
+        <article class:list={['surface-muted pricing-card', plan.highlight && 'is-highlight']}>
+          <div class="pricing-card-head">
+            <h3>{t(locale, plan.titleKey)}</h3>
+            <p>{t(locale, plan.subtitleKey)}</p>
+          </div>
+
+          <div class="pricing-card-price">
+            <strong data-pricing-amount data-monthly={plan.monthlyLabel} data-yearly={plan.yearlyLabel}>
+              {plan.monthlyLabel}
+            </strong>
+            <span data-pricing-period data-monthly={plan.monthlyPeriod} data-yearly={plan.yearlyPeriod}>
+              {plan.monthlyPeriod}
+            </span>
+          </div>
+
+          <p class="pricing-card-meta">
+            {t(locale, 'pricing_budget_label')}: ${plan.monthlyBudgetUsd.toFixed(2)}
+          </p>
+          {plan.trialDays ? (
+            <p class="pricing-card-meta">
+              {t(locale, 'pricing_trial_days_label')}: {plan.trialDays}
+            </p>
+          ) : null}
+
+          <ul class="pricing-feature-list">
+            {plan.featureKeys.map((key) => (
+              <li>{t(locale, key)}</li>
+            ))}
+          </ul>
+
+          <a class="btn btn-secondary pricing-card-cta" href={plan.ctaHref}>
+            {t(locale, plan.ctaKey)}
+          </a>
+        </article>
+      ))
+    }
+  </div>
+
+  <p class="pricing-footer-note">{t(locale, 'pricing_footer_note')}</p>
+</section>
+
+<script is:inline>
+  (() => {
+    const root = document.querySelector('[data-pricing-root]');
+    if (!(root instanceof HTMLElement)) return;
+
+    const buttons = root.querySelectorAll('[data-pricing-cycle-button]');
+    const amounts = root.querySelectorAll('[data-pricing-amount]');
+    const periods = root.querySelectorAll('[data-pricing-period]');
+
+    const setCycle = (cycle) => {
+      if (cycle !== 'monthly' && cycle !== 'yearly') return;
+      root.dataset.pricingCycle = cycle;
+
+      buttons.forEach((button) => {
+        if (!(button instanceof HTMLButtonElement)) return;
+        button.classList.toggle('is-active', button.dataset.cycle === cycle);
+      });
+
+      amounts.forEach((node) => {
+        if (!(node instanceof HTMLElement)) return;
+        node.textContent = node.dataset[cycle] ?? node.textContent;
+      });
+
+      periods.forEach((node) => {
+        if (!(node instanceof HTMLElement)) return;
+        node.textContent = node.dataset[cycle] ?? node.textContent;
+      });
+    };
+
+    buttons.forEach((button) => {
+      if (!(button instanceof HTMLButtonElement)) return;
+      button.addEventListener('click', () => setCycle(button.dataset.cycle ?? 'monthly'));
+    });
+  })();
+</script>

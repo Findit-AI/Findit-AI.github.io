@@ -1,0 +1,105 @@
+---
+import { localizePath, t, type Locale } from '../i18n/runtime';
+import {
+  buildSupportArticlePath,
+  buildSupportCategoryPath,
+  getArticlesByCategory,
+  supportKbCategories,
+  type SupportKbCategory,
+} from '../support/kb';
+
+interface Props {
+  locale: Locale;
+  category: SupportKbCategory;
+}
+
+const { locale, category } = Astro.props as Props;
+const categoryTitle = t(locale, category.titleKey) ?? category.id;
+const categorySummary = t(locale, category.summaryKey) ?? '';
+const articles = getArticlesByCategory(category.id);
+const sidebarSearchPlaceholder = locale === 'zh' ? '搜索文档' : 'Search docs';
+---
+
+<section class="section-block reveal support-article-shell">
+  <div class="support-article-layout">
+    <aside class="surface-muted support-article-sidebar">
+      <input
+        type="search"
+        class="support-article-search"
+        placeholder={sidebarSearchPlaceholder}
+        aria-label={sidebarSearchPlaceholder}
+      />
+
+      <nav aria-label={t(locale, 'support_kb_sidebar_groups_label') ?? 'Knowledge categories'}>
+        <p class="support-article-sidebar-title">{t(locale, 'support_kb_sidebar_groups_label') ?? 'Categories'}</p>
+        <ul class="support-article-sidebar-links">
+          {
+            supportKbCategories.map((entry) => {
+              const label = t(locale, entry.titleKey) ?? entry.id;
+              const href = localizePath(locale, buildSupportCategoryPath(entry.id));
+              const isActive = entry.id === category.id;
+              return (
+                <li>
+                  <a class:list={['support-article-sidebar-link', isActive && 'is-active']} href={href}>
+                    {label}
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </nav>
+
+      <nav aria-label={categoryTitle}>
+        <p class="support-article-sidebar-title">{categoryTitle}</p>
+        <ul class="support-article-sidebar-links">
+          {
+            articles.map((entry) => {
+              const label = t(locale, entry.titleKey) ?? entry.id;
+              return (
+                <li>
+                  <a
+                    class="support-article-sidebar-link"
+                    href={localizePath(locale, buildSupportArticlePath(entry.category, entry.slug))}
+                  >
+                    {label}
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </nav>
+    </aside>
+
+    <article class="surface-muted support-article-content">
+      <p class="support-article-breadcrumbs">
+        <a href={localizePath(locale, '/support')}>{t(locale, 'nav_support') ?? 'Support'}</a>
+        <span>›</span>
+        <span>{categoryTitle}</span>
+      </p>
+
+      <h1>{categoryTitle}</h1>
+      {categorySummary ? <p>{categorySummary}</p> : null}
+
+      <section class="support-category-group">
+        <h2>{t(locale, 'support_category_articles_heading') ?? 'Articles'}</h2>
+        <ul class="support-category-list">
+          {
+            articles.map((entry) => (
+              <li>
+                <a
+                  class="support-category-item"
+                  href={localizePath(locale, buildSupportArticlePath(entry.category, entry.slug))}
+                >
+                  <span>{t(locale, entry.titleKey) ?? entry.id}</span>
+                  <small>{t(locale, entry.summaryKey) ?? ''}</small>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </article>
+  </div>
+</section>

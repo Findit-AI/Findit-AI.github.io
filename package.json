@@ -1,0 +1,29 @@
+{
+  "name": "findit-studio-site",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "predev": "npm run check:content:soft",
+    "dev": "astro dev",
+    "build": "npm run check:content && ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "build:preview": "npm run check:content:soft && ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check:content": "node scripts/content-health.mjs",
+    "check:content:soft": "CONTENT_HEALTH_STRICT=0 node scripts/content-health.mjs",
+    "check:perf": "node scripts/perf-budget.mjs"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/sitemap": "^3.7.0",
+    "@fontsource/instrument-serif": "^5.2.8",
+    "@fontsource/space-grotesk": "^5.2.10",
+    "astro": "^5.17.1",
+    "gray-matter": "^4.0.3"
+  },
+  "devDependencies": {
+    "vitest": "^4.0.18"
+  }
+}

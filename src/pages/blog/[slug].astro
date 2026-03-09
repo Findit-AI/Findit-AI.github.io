@@ -1,0 +1,75 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import MainLayout from '../../layouts/MainLayout.astro';
+import invalidContent from '../../generated/content-invalid.json';
+import { t } from '../../i18n/runtime';
+
+const locale = 'en';
+
+export async function getStaticPaths() {
+  const blocked = new Set(invalidContent.invalidByCollection.blog ?? []);
+  const availablePosts = (
+    await getCollection('blog', ({ data }) => data.locale === 'en' && !data.draft)
+  ).filter((entry) => !blocked.has(entry.slug));
+
+  return availablePosts.map((entry) => ({ params: { slug: entry.slug }, props: { entry } }));
+}
+
+const { entry } = Astro.props as { entry: CollectionEntry<'blog'> };
+
+const categoryLabels: Record<string, string> = {
+  announcement: 'Announcement',
+  product: 'Product',
+  engineering: 'Engineering',
+  workflow: 'Workflow',
+  changelog: 'Changelog',
+};
+
+const formatDate = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: '2-digit',
+});
+
+function categoryName(category: string | undefined): string {
+  if (!category) return 'Update';
+  return categoryLabels[category] ?? category.replace(/[-_]/g, ' ').replace(/\b\w/g, (m) => m.toUpperCase());
+}
+
+let Content: Awaited<ReturnType<typeof render>>['Content'] | null = null;
+let renderFailed = false;
+
+try {
+  ({ Content } = await render(entry));
+} catch (error) {
+  console.error(`[content] Failed to render blog entry: slug=${entry.slug}`, error);
+  renderFailed = true;
+}
+---
+
+<MainLayout locale={locale} title={`FinDIT | ${entry.data.title}`}>
+  <article class="blog-article-shell reveal">
+    <header class="blog-article-head">
+      <p class="blog-article-meta">
+        <span>{categoryName(entry.data.category)}</span>
+        <span aria-hidden="true">·</span>
+        <span>{t(locale, 'label_published_at')}: {formatDate.format(entry.data.publishedAt)}</span>
+      </p>
+      <h1 class="blog-article-title">{entry.data.title}</h1>
+      <p class="blog-article-dek">{entry.data.description}</p>
+    </header>
+
+    {
+      renderFailed || !Content ? (
+        <section class="blog-content-fallback">
+          <strong>{t(locale, 'content_unavailable_title')}</strong>
+          <p>{t(locale, 'content_unavailable_body')}</p>
+        </section>
+      ) : (
+        <div class="blog-article-content">
+          <Content />
+        </div>
+      )
+    }
+  </article>
+</MainLayout>

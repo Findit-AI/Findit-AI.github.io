@@ -1,0 +1,84 @@
+---
+import { t, type Locale } from '../i18n/runtime';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props as Props;
+---
+
+<section class="content-limit waitlist-page reveal">
+  <article class="waitlist-panel surface">
+    <header class="waitlist-head">
+      <p class="section-kicker">{t(locale, 'waitlist_kicker')}</p>
+      <h1>{t(locale, 'waitlist_heading')}</h1>
+      <p>{t(locale, 'waitlist_subtitle')}</p>
+    </header>
+
+    <form class="waitlist-form" data-waitlist-form novalidate>
+      <label class="waitlist-field">
+        <span>{t(locale, 'waitlist_form_name_label')}</span>
+        <input
+          type="text"
+          name="name"
+          placeholder={t(locale, 'waitlist_form_name_placeholder') ?? ''}
+          autocomplete="name"
+          required
+        />
+      </label>
+
+      <label class="waitlist-field">
+        <span>{t(locale, 'waitlist_form_email_label')}</span>
+        <input
+          type="email"
+          name="email"
+          placeholder={t(locale, 'waitlist_form_email_placeholder') ?? ''}
+          autocomplete="email"
+          required
+        />
+      </label>
+
+      <label class="waitlist-field">
+        <span>{t(locale, 'waitlist_form_role_label')}</span>
+        <input
+          type="text"
+          name="role"
+          placeholder={t(locale, 'waitlist_form_role_placeholder') ?? ''}
+          autocomplete="organization-title"
+        />
+      </label>
+
+      <label class="waitlist-field waitlist-field-wide">
+        <span>{t(locale, 'waitlist_form_use_case_label')}</span>
+        <textarea
+          name="useCase"
+          placeholder={t(locale, 'waitlist_form_use_case_placeholder') ?? ''}
+          rows={4}
+        ></textarea>
+      </label>
+
+      <div class="waitlist-actions waitlist-field-wide">
+        <button type="submit" class="btn btn-primary">{t(locale, 'waitlist_form_submit')}</button>
+        <p class="waitlist-success" data-waitlist-success role="status" aria-live="polite" hidden>
+          {t(locale, 'waitlist_form_success')}
+        </p>
+      </div>
+    </form>
+  </article>
+</section>
+
+<script is:inline>
+  (() => {
+    const form = document.querySelector('[data-waitlist-form]');
+    if (!(form instanceof HTMLFormElement)) return;
+
+    const success = form.querySelector('[data-waitlist-success]');
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      if (success instanceof HTMLElement) success.hidden = false;
+      form.dataset.submitted = 'true';
+    });
+  })();
+</script>

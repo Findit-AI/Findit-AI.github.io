@@ -1,0 +1,76 @@
+---
+import { getCollection } from 'astro:content';
+import MainLayout from '../../../layouts/MainLayout.astro';
+import invalidContent from '../../../generated/content-invalid.json';
+import { t } from '../../../i18n/runtime';
+
+const locale = 'zh';
+const blocked = new Set(invalidContent.invalidByCollection.blog ?? []);
+
+const posts = (await getCollection('blog', ({ data }) => data.locale === locale && !data.draft))
+  .filter((entry) => !blocked.has(entry.slug))
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+const categoryLabels: Record<string, string> = {
+  announcement: '公告',
+  product: '产品',
+  engineering: '工程',
+  workflow: '工作流',
+  changelog: '更新日志',
+};
+
+const formatDate = new Intl.DateTimeFormat('zh-CN', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+function categoryName(category: string | undefined): string {
+  if (!category) return '动态';
+  return categoryLabels[category] ?? category;
+}
+
+const subtitle = '围绕 FinDIT 的产品更新、工作流实践与发布背景，持续记录。';
+const categories = Array.from(new Set(posts.map((post) => categoryName(post.data.category))));
+---
+
+<MainLayout locale={locale} title="FinDIT | 博客">
+  <section class="blog-index-shell reveal">
+    <header class="blog-index-head">
+      <p class="section-kicker">Journal</p>
+      <h1>{t(locale, 'page_blog_title')}</h1>
+      <p>{subtitle}</p>
+
+      {categories.length > 0 ? (
+        <div class="blog-category-row" aria-label="博客分类">
+          <span class="blog-category-chip is-active">全部</span>
+          {categories.map((category) => <span class="blog-category-chip">{category}</span>)}
+        </div>
+      ) : null}
+    </header>
+
+    {
+      posts.length === 0 ? (
+        <p class="blog-empty">{t(locale, 'page_coming_soon')}</p>
+      ) : (
+        <div class="blog-list-grid">
+          {posts.map((entry) => (
+            <a class="blog-list-card" href={`/zh/blog/${entry.slug}`}>
+              <p class="blog-list-card-meta">
+                <span>{categoryName(entry.data.category)}</span>
+                <span aria-hidden="true">·</span>
+                <span>{formatDate.format(entry.data.publishedAt)}</span>
+              </p>
+              <h2 class="blog-list-card-title">{entry.data.title}</h2>
+              <p class="blog-list-card-desc">{entry.data.description}</p>
+              <span class="blog-list-card-link">
+                {t(locale, 'label_open_article')}
+                <span aria-hidden="true">↗</span>
+              </span>
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </section>
+</MainLayout>

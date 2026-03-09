@@ -1,0 +1,131 @@
+---
+import { localizePath, t, type Locale } from '../i18n/runtime';
+import {
+  buildSupportArticlePath,
+  buildSupportCategoryPath,
+  getCategoryCardTargets,
+  supportKbArticles,
+  supportKbCategories,
+} from '../support/kb';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props as Props;
+
+const quickLinks = [
+  { label: t(locale, 'support_quick_link_1') ?? '', href: '#' },
+  { label: t(locale, 'support_quick_link_2') ?? '', href: '#' },
+  { label: t(locale, 'support_quick_link_3') ?? '', href: '#' },
+];
+
+const categoryTargets = new Map(getCategoryCardTargets(locale).map((item) => [item.id, item.href]));
+
+const kbCards = supportKbCategories.map((category, index) => ({
+  id: category.id,
+  title: t(locale, category.titleKey) ?? '',
+  summary: t(locale, category.summaryKey) ?? '',
+  href: categoryTargets.get(category.id) ?? localizePath(locale, buildSupportCategoryPath(category.id)),
+  keywords: [
+    t(locale, `support_kb_card_${index + 1}_keyword_1`) ?? '',
+    t(locale, `support_kb_card_${index + 1}_keyword_2`) ?? '',
+    t(locale, `support_kb_card_${index + 1}_keyword_3`) ?? '',
+  ],
+}));
+
+const articleEntries = supportKbArticles.map((article) => ({
+  id: article.id,
+  title: t(locale, article.titleKey) ?? article.id,
+  summary: t(locale, article.summaryKey) ?? '',
+  href: localizePath(locale, buildSupportArticlePath(article.category, article.slug)),
+  keywords: [
+    t(locale, article.titleKey) ?? '',
+    t(locale, article.summaryKey) ?? '',
+    article.category,
+    article.slug.replace(/-/g, ' '),
+  ],
+}));
+
+const suggestedArticleIds = [
+  'quick-start',
+  'what-is-findit',
+  'search-no-results',
+  'supported-formats',
+  'export-to-editors',
+  'plans-and-billing',
+];
+
+const kbConfig = {
+  entries: articleEntries,
+  suggestedIds: suggestedArticleIds,
+  emptyMessage: t(locale, 'support_search_empty') ?? '',
+  resultLabel: t(locale, 'support_search_results_label') ?? '',
+};
+---
+
+<section class="full-bleed support-kb-hero reveal">
+  <div class="content-limit support-kb-hero-inner">
+    <p class="section-kicker">{t(locale, 'support_kb_kicker')}</p>
+    <h1>{t(locale, 'support_kb_heading')}</h1>
+
+    <div class="support-search-shell">
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <input
+        data-support-search-input
+        type="search"
+        placeholder={t(locale, 'support_search_placeholder') ?? ''}
+        aria-label={t(locale, 'support_search_placeholder') ?? 'Search'}
+      />
+      <button type="button">{t(locale, 'support_search_ai_button')}</button>
+    </div>
+
+    <div class="support-quick-links">
+      {quickLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+    </div>
+  </div>
+</section>
+
+<section class="section-block reveal">
+  <div class="support-kb-grid">
+    {
+      kbCards.map((card) => (
+        <a class="surface-muted support-kb-card support-kb-card-link" data-kb-card data-kb-id={card.id} href={card.href}>
+          <h3>{card.title}</h3>
+          <p>{card.summary}</p>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<section class="section-block reveal">
+  <article class="surface-muted support-results-panel">
+    <div class="support-results-head">
+      <h2>{t(locale, 'support_results_title')}</h2>
+      <span data-support-result-count></span>
+    </div>
+    <p data-support-empty style="display:none;"></p>
+    <ul data-support-results-list></ul>
+  </article>
+</section>
+
+<script id="support-kb-config" type="application/json" set:html={JSON.stringify(kbConfig)}></script>
+
+<script>
+  import { mountSupportKb } from '../scripts/support-kb';
+
+  const root = document.querySelector('main');
+  const configNode = document.getElementById('support-kb-config');
+  let config = null;
+
+  try {
+    config = JSON.parse(configNode?.textContent ?? '{}');
+  } catch (error) {
+    console.error('[support-kb] Invalid config payload.', error);
+  }
+
+  if (config) {
+    mountSupportKb(root, config);
+  }
+</script>

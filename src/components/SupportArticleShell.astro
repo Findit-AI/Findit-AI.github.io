@@ -1,0 +1,117 @@
+---
+import { localizePath, t, type Locale } from '../i18n/runtime';
+import {
+  buildSupportArticlePath,
+  buildSupportCategoryPath,
+  getArticlesByCategory,
+  getSupportCategoryBySlug,
+  supportKbCategories,
+  type SupportKbArticle,
+} from '../support/kb';
+import { getSupportArticleContent } from '../support/article-content';
+
+interface Props {
+  locale: Locale;
+  article: SupportKbArticle;
+}
+
+const { locale, article } = Astro.props as Props;
+
+const activeCategory = getSupportCategoryBySlug(article.category) ?? supportKbCategories[0];
+const categoryTitle = t(locale, activeCategory.titleKey) ?? activeCategory.id;
+const relatedArticles = getArticlesByCategory(activeCategory.id);
+const articleTitle = t(locale, article.titleKey) ?? article.id;
+const articleSummary = t(locale, article.summaryKey) ?? '';
+const articleBody = getSupportArticleContent(article.id, locale);
+const sidebarSearchPlaceholder = locale === 'zh' ? '搜索文档' : 'Search docs';
+---
+
+<section class="section-block reveal support-article-shell">
+  <div class="support-article-layout">
+    <aside class="surface-muted support-article-sidebar">
+      <input
+        type="search"
+        class="support-article-search"
+        placeholder={sidebarSearchPlaceholder}
+        aria-label={sidebarSearchPlaceholder}
+      />
+
+      <nav aria-label={t(locale, 'support_kb_sidebar_groups_label') ?? 'Knowledge categories'}>
+        <p class="support-article-sidebar-title">{t(locale, 'support_kb_sidebar_groups_label') ?? 'Categories'}</p>
+        <ul class="support-article-sidebar-links">
+          {
+            supportKbCategories.map((category) => {
+              const label = t(locale, category.titleKey) ?? category.id;
+              const href = localizePath(locale, buildSupportCategoryPath(category.id));
+              const isActive = category.id === activeCategory.id;
+              return (
+                <li>
+                  <a class:list={['support-article-sidebar-link', isActive && 'is-active']} href={href}>
+                    {label}
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </nav>
+
+      <nav aria-label={categoryTitle}>
+        <p class="support-article-sidebar-title">{categoryTitle}</p>
+        <ul class="support-article-sidebar-links">
+          {
+            relatedArticles.map((entry) => {
+              const label = t(locale, entry.titleKey) ?? entry.id;
+              const href = localizePath(locale, buildSupportArticlePath(entry.category, entry.slug));
+              const isActive = entry.id === article.id;
+              return (
+                <li>
+                  <a class:list={['support-article-sidebar-link', isActive && 'is-active']} href={href}>
+                    {label}
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </nav>
+    </aside>
+
+    <article class="surface-muted support-article-content">
+      <p class="support-article-breadcrumbs">
+        <a href={localizePath(locale, '/support')}>{t(locale, 'nav_support') ?? 'Support'}</a>
+        <span>›</span>
+        <a href={localizePath(locale, buildSupportCategoryPath(activeCategory.id))}>{categoryTitle}</a>
+        <span>›</span>
+        <span>{articleTitle}</span>
+      </p>
+
+      <h1>{articleTitle}</h1>
+      {articleSummary ? <p>{articleSummary}</p> : null}
+
+      {
+        articleBody ? (
+          <section class="support-article-body">
+            <p>{articleBody.intro}</p>
+            {articleBody.sections.map((section) => (
+              <div class="support-article-section">
+                <h2>{section.title}</h2>
+                <ul>
+                  {section.points.map((point) => (
+                    <li>{point}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+            {articleBody.note ? <p class="support-article-note">{articleBody.note}</p> : null}
+          </section>
+        ) : (
+          <div class="support-article-placeholder">
+            <strong>{t(locale, 'support_article_placeholder_title') ?? 'Content unavailable'}</strong>
+            <p>{t(locale, 'support_article_placeholder_body') ?? 'Please browse another support entry.'}</p>
+          </div>
+        )
+      }
+    </article>
+  </div>
+</section>

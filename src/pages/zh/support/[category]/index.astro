@@ -1,0 +1,22 @@
+---
+import SupportCategoryShell from '../../../../components/SupportCategoryShell.astro';
+import MainLayout from '../../../../layouts/MainLayout.astro';
+import { t } from '../../../../i18n/runtime';
+import { supportKbCategories, type SupportKbCategory } from '../../../../support/kb';
+
+const locale = 'zh';
+
+export function getStaticPaths() {
+  return supportKbCategories.map((category) => ({
+    params: { category: category.id },
+    props: { category },
+  }));
+}
+
+const { category } = Astro.props as { category: SupportKbCategory };
+const categoryTitle = t(locale, category.titleKey) ?? category.id;
+---
+
+<MainLayout locale={locale} title={`FinDIT | ${categoryTitle}`}>
+  <SupportCategoryShell locale={locale} category={category} />
+</MainLayout>

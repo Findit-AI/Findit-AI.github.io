@@ -1,0 +1,10 @@
+---
+import HomeSections from '../components/HomeSections.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+
+const locale = 'en';
+---
+
+<MainLayout locale={locale} title="FinDIT | Home">
+  <HomeSections locale={locale} />
+</MainLayout>

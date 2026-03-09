@@ -1,0 +1,31 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FinDIT">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#05070A"/>
+      <stop offset="1" stop-color="#0A0D12"/>
+    </linearGradient>
+    <radialGradient id="beam" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(930 120) rotate(145) scale(520 320)">
+      <stop stop-color="#E8406A" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#E8406A" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#beam)"/>
+
+  <g opacity="0.28">
+    <path d="M-120 470H1320" stroke="#FFFFFF" stroke-opacity="0.2"/>
+    <path d="M-120 520H1320" stroke="#FFFFFF" stroke-opacity="0.12"/>
+    <path d="M-120 570H1320" stroke="#FFFFFF" stroke-opacity="0.08"/>
+  </g>
+
+  <text x="120" y="250" fill="#F4F7FB" font-family="Space Grotesk, Inter, sans-serif" font-size="88" font-weight="700" letter-spacing="-2">
+    FinDIT
+  </text>
+  <text x="120" y="325" fill="#D9C3A6" font-family="Instrument Serif, Georgia, serif" font-size="52" letter-spacing="0.5">
+    Find Signal. Move at Command Speed.
+  </text>
+  <text x="120" y="390" fill="#AAB4C1" font-family="Space Grotesk, Inter, sans-serif" font-size="28">
+    Premium operating layer for high-velocity teams.
+  </text>
+</svg>

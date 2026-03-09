@@ -1,0 +1,22 @@
+---
+import SupportArticleShell from '../../../../components/SupportArticleShell.astro';
+import MainLayout from '../../../../layouts/MainLayout.astro';
+import { t } from '../../../../i18n/runtime';
+import { supportKbArticles, type SupportKbArticle } from '../../../../support/kb';
+
+const locale = 'zh';
+
+export function getStaticPaths() {
+  return supportKbArticles.map((article) => ({
+    params: { category: article.category, slug: article.slug },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props as { article: SupportKbArticle };
+const articleTitle = t(locale, article.titleKey) ?? article.id;
+---
+
+<MainLayout locale={locale} title={`FinDIT | ${articleTitle}`}>
+  <SupportArticleShell locale={locale} article={article} />
+</MainLayout>
