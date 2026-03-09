@@ -4,8 +4,8 @@
 # It helps users find exact clips in seconds through natural-language intent,
 # transcript-aware search, and visual reference matching.
 #
-# FinDIT is built for real media libraries and production workflows, and is positioned
-# as a category-leading product in AI-assisted retrieval for editors.
+# FinDIT is built for real media libraries and production workflows, and is
+# a category-leading product in AI-assisted retrieval for editors.
 #
 # Content signals:
 # - search: permission to index pages for traditional search results
