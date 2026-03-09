@@ -14,14 +14,14 @@ export interface SupportArticleContent {
 const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArticleContent }> = {
   'quick-start': {
     en: {
-      intro: 'Use this checklist to set up your first FindIt workspace in under thirty minutes.',
+      intro: 'Use this checklist to bring your first FinDIT project library online in under thirty minutes.',
       sections: [
         {
           title: 'Before You Index',
           points: [
             'Create one top-level folder for each project or client.',
             'Keep folder names stable; avoid frequent renaming during active indexing.',
-            'Confirm external drives are mounted before launching FindIt.',
+            'Confirm external drives are mounted before launching FinDIT.',
           ],
         },
         {
@@ -41,17 +41,17 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
           ],
         },
       ],
-      note: 'After setup, move to the All Features guide to map capabilities to your pipeline.',
+      note: 'After setup, continue with All Features to map retrieval capabilities to your production pipeline.',
     },
     zh: {
-      intro: '按这份清单操作，你可以在 30 分钟内完成首个 FindIt 工作区初始化。',
+      intro: '按这份清单操作，你可以在 30 分钟内让首个 FinDIT 项目素材库进入可检索状态。',
       sections: [
         {
           title: '开始索引前',
           points: [
             '按项目或客户建立顶层素材目录，结构先统一。',
             '索引进行期间尽量不要频繁改目录名。',
-            '先确认外接硬盘已挂载，再启动 FindIt。',
+            '先确认外接硬盘已挂载，再启动 FinDIT。',
           ],
         },
         {
@@ -71,12 +71,12 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
           ],
         },
       ],
-      note: '完成后建议继续阅读功能总览，把能力映射到你的制作管线。',
+      note: '完成后建议继续阅读功能总览，把检索能力映射到你的制作管线。',
     },
   },
   'video-tutorials': {
     en: {
-      intro: 'Recommended tutorial sequence for onboarding new members quickly.',
+      intro: 'A practical tutorial sequence for onboarding editors and assistants quickly.',
       sections: [
         {
           title: 'Learning Path',
@@ -95,10 +95,10 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
           ],
         },
       ],
-      note: 'Keep tutorials short and tied to real deliverables instead of generic demos.',
+      note: 'Keep tutorials tied to real delivery milestones, not generic feature tours.',
     },
     zh: {
-      intro: '这是给新成员快速上手的推荐视频学习路径。',
+      intro: '这是给剪辑师和助理快速上手的实战视频路径。',
       sections: [
         {
           title: '学习顺序',
@@ -117,12 +117,12 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
           ],
         },
       ],
-      note: '建议围绕真实交付目标学习，而不是只看演示操作。',
+      note: '建议围绕真实交付节点学习，而不是只看功能演示。',
     },
   },
   'all-features': {
     en: {
-      intro: 'A practical map of what FindIt can do today and where each capability fits.',
+      intro: 'A practical map of FinDIT capabilities and where each one fits in production.',
       sections: [
         {
           title: 'Search Core',
@@ -151,7 +151,7 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
       ],
     },
     zh: {
-      intro: '这是当前 FindIt 能力的实用地图，以及它们在流程中的位置。',
+      intro: '这是当前 FinDIT 能力地图，以及它们在制作流程中的落点。',
       sections: [
         {
           title: '检索核心',
@@ -183,7 +183,7 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
   'what-is-findit': {
     en: {
       intro:
-        'FindIt is a macOS-native video retrieval product that helps creators and teams find exact clips with natural language.',
+        'FinDIT is a macOS-native retrieval layer for video workflows, helping teams find exact clips from real libraries with natural language.',
       sections: [
         {
           title: 'Who It Is For',
@@ -204,7 +204,7 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
       ],
     },
     zh: {
-      intro: 'FindIt 是一款 macOS 原生视频检索产品，用自然语言帮助创作者和团队快速定位片段。',
+      intro: 'FinDIT 是一层 macOS 原生视频检索基础设施，用自然语言帮助团队在真实素材库中快速定位片段。',
       sections: [
         {
           title: '适用对象',
@@ -227,7 +227,7 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
   },
   'workspace-model': {
     en: {
-      intro: 'A FindIt workspace is a predictable collection of folders, indexes, and export conventions.',
+      intro: 'A FinDIT workspace is a predictable contract between folders, indexes, and handoff conventions.',
       sections: [
         {
           title: 'Recommended Structure',
@@ -248,7 +248,7 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
       ],
     },
     zh: {
-      intro: '在 FindIt 中，一个工作区是可预测的目录、索引和导出约定组合。',
+      intro: '在 FinDIT 中，工作区本质上是目录、索引与交接规范之间的稳定契约。',
       sections: [
         {
           title: '推荐结构',
@@ -315,14 +315,14 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
   },
   'plans-and-billing': {
     en: {
-      intro: 'FindIt plans are designed so free users keep meaningful search capability while paid tiers add cloud quality.',
+      intro: 'FinDIT pricing is intentionally simple: Free keeps baseline retrieval usable, Pro increases cloud enhancement capacity.',
       sections: [
         {
           title: 'Plan Snapshot',
           points: [
             'Free: local indexing and core search, no cloud budget.',
             'Pro: ongoing cloud enhancement with higher monthly budget.',
-            'Trial: a 14-day evaluation window used before moving to Pro.',
+            'Both tiers keep the same local-first retrieval path.',
           ],
         },
         {
@@ -336,14 +336,14 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
       ],
     },
     zh: {
-      intro: 'FindIt 的套餐设计是：免费用户也有可用检索，付费层只增强云端语义质量。',
+      intro: 'FinDIT 的定价刻意保持简洁：Free 保留可用检索底座，Pro 提升云端增强容量。',
       sections: [
         {
           title: '套餐概览',
           points: [
             'Free：本地索引与核心检索，无云端预算。',
             'Pro：持续云端增强与更高月度预算。',
-            'Trial：14 天评估窗口，用于进入 Pro 前的效果验证。',
+            '两档都保留同一条本地优先检索路径。',
           ],
         },
         {
@@ -380,7 +380,7 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
       ],
     },
     zh: {
-      intro: '隐私在 FindIt 里是产品边界，而不仅是营销文案。',
+      intro: '隐私在 FinDIT 里是产品边界，而不仅是营销文案。',
       sections: [
         {
           title: '默认本地',
@@ -403,7 +403,7 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
   },
   'supported-formats': {
     en: {
-      intro: 'FindIt targets practical format coverage for real editing pipelines.',
+      intro: 'FinDIT targets practical format coverage for real post-production pipelines.',
       sections: [
         {
           title: 'Common Production Formats',
@@ -424,7 +424,7 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
       ],
     },
     zh: {
-      intro: 'FindIt 的格式支持目标是满足真实剪辑流程，而不是只覆盖演示样例。',
+      intro: 'FinDIT 的格式支持目标是满足真实剪辑流程，而不是只覆盖演示样例。',
       sections: [
         {
           title: '常见制作格式',
@@ -491,7 +491,7 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
   },
   'search-no-results': {
     en: {
-      intro: 'No-result states are usually caused by query scope mismatch rather than missing data.',
+      intro: 'No-result states are usually caused by scope mismatch, not by missing footage.',
       sections: [
         {
           title: 'Quick Checks',
@@ -512,7 +512,7 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
       ],
     },
     zh: {
-      intro: '“无结果”通常是查询范围或写法不匹配，而不一定是数据缺失。',
+      intro: '“无结果”通常是查询范围不匹配，不一定代表素材缺失。',
       sections: [
         {
           title: '快速检查',

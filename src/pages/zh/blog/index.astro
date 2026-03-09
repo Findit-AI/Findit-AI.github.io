@@ -30,7 +30,7 @@ function categoryName(category: string | undefined): string {
   return categoryLabels[category] ?? category;
 }
 
-const subtitle = '围绕 FinDIT 的产品更新、工作流实践与发布背景，持续记录。';
+const subtitle = '围绕“检索瓶颈”这一核心问题，持续记录 FinDIT 的产品更新、工作流实践与发布背景。';
 const categories = Array.from(new Set(posts.map((post) => categoryName(post.data.category))));
 ---
 

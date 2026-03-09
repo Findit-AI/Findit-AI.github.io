@@ -1,96 +1,102 @@
-# FinDIT Studio Website
+# FinDIT
 
-Official marketing website for **FinDIT** (`findit.studio`).
+Local-first video retrieval for real production pipelines.
 
-This repository hosts a static-first, performance-focused, dark-theme product site with bilingual support and a safe content pipeline.
+FinDIT helps creators, assistant editors, and post-production teams find usable footage in seconds instead of scrubbing for hours. The product indexes real media libraries on-device and returns clip-level matches from natural-language intent, transcript lines, and visual references.
 
-## Product Goals
+## Why This Exists
 
-- Deliver a premium dark visual style aligned with FinDIT app speed and precision.
-- Keep the website lightweight and smooth on mobile and desktop.
-- Support EN/ZH now, reserve JA for next phase.
-- Prepare for future interactive product demo modules without over-engineering phase 0-2.
+In most video projects, the slowest step is not editing, it is retrieval.
+
+Large shoots generate hundreds to thousands of clips. Teams still rely on folder memory, manual naming, and repeated previewing to locate one usable moment. As footage volume grows, that manual workflow collapses.
+
+FinDIT is built to close that gap with searchable media content, not just searchable filenames.
+
+## Product Direction
+
+- Search real footage like text.
+- Keep core indexing and retrieval local-first.
+- Avoid mandatory cloud upload and storage toll for baseline usefulness.
+- Support real handoff into editing tools, not synthetic "AI video toy" workflows.
+- Build structured retrieval layers that future agent workflows can call reliably.
+
+## Repository Scope
+
+This repository contains the public FinDIT marketing site and waitlist ingestion path.
+
+- Marketing website (EN default + ZH path)
+- Blog and support knowledge base
+- Pricing and legal pages
+- Waitlist form with anti-abuse controls and backend sync pipeline
+
+## Architecture (Website + Waitlist)
+
+### Frontend
+
+- Astro static-first site
+- MDX content collections for blog/support content
+- Bilingual dictionary-based UI copy (EN/ZH)
+- Dark UI system optimized for smooth interactions on desktop/mobile
+
+### Waitlist API Pipeline
+
+User submit -> Vercel API route -> Turnstile verify -> Upstash rate limit -> Supabase upsert -> Resend audience sync
+
+Stored fields include:
+
+- `email` (required)
+- `language` (`en`/`zh`, inferred from page locale)
+
+Supabase remains the source of truth. Resend contact properties are synchronized for language-based broadcasts.
 
 ## Tech Stack
 
-- **Framework:** [Astro](https://astro.build/) (static-first)
-- **Content:** Astro Content Collections + MDX (`@astrojs/mdx`)
-- **Language:** TypeScript (strict)
-- **Styling:** CSS tokens + global stylesheet + local Fontsource subsets
-- **Testing:** Vitest
-- **SEO:** canonical/hreflang, Open Graph/Twitter metadata, sitemap integration
-- **Content Validation:** custom `scripts/content-health.mjs`
-- **Performance Budget:** custom `scripts/perf-budget.mjs`
-- **Deployment Targets:** Vercel (primary), GitHub Pages (static compatible)
-- **CI/CD:** GitHub Actions (`.github/workflows/ci.yml`, `.github/workflows/deploy-pages.yml`)
+- Astro + TypeScript
+- MDX (`@astrojs/mdx`)
+- Vitest
+- Vercel Functions
+- Supabase
+- Resend
+- Cloudflare Turnstile
+- Upstash Redis
 
-## i18n and Routing
+## Security Model
 
-- Default locale: **English** (no prefix)
-  - `/`
-  - `/blog`
-  - `/resources`
-  - `/support`
-- Chinese locale: `/zh/*`
-- Japanese namespace reserved: `/ja/*` (content to be added later)
+- No service-role secrets in client bundle.
+- All privileged operations run server-side in Vercel functions.
+- Turnstile challenge required for form submission.
+- IP and email based rate limiting at API edge.
+- CORS and allowed-origin checks for production domains.
 
-## Error and Boundary Handling
+## Local Development
 
-- **Missing i18n key fallback:**
-  - lookup order: `active locale -> en -> placeholder/null`
-  - required key missing in production: `[missing copy]`
-  - required key missing in development: `[i18n-missing:<key>]`
-  - optional key missing: hide the block (`null`)
-- **Invalid content handling:**
-  - `content-health` checks frontmatter and writes `src/generated/content-invalid.json`
-  - strict mode blocks builds; soft mode records issues and allows preview builds
-  - listing pages exclude invalid slugs
-  - detail pages catch render errors and show localized fallback panel
-
-## Project Structure
-
-```text
-FinDIT-Studio.github.io/
-├── emails/                  # Internal email templates
-├── public/
-├── scripts/
-│   └── content-health.mjs   # i18n/content boundary checker
-├── src/
-│   ├── content/             # blog/resources MDX content
-│   ├── generated/           # generated invalid content index
-│   ├── i18n/                # dictionaries + runtime + fallback logic
-│   ├── layouts/
-│   ├── pages/
-│   └── styles/
-├── tests/
-└── docs/
+```bash
+npm install
+npm run dev
 ```
 
-## Commands
+Useful checks:
 
-- `npm install`
-- `npm run dev` (runs soft content check first)
-- `npm run check:content` (strict mode)
-- `npm run check:content:soft` (preview mode)
-- `npm test`
-- `npm run build` (strict content check + static build)
-- `npm run build:preview` (soft content check + static build)
-- `npm run check:perf` (asset-size budget validation after build)
+```bash
+npm run check:content
+npm test
+npm run build
+```
 
-## Current Phase
+## Deployment
 
-- Phase 0 complete: foundation scaffold, i18n fallback, content health checks, CI baseline.
-- Phase 1 complete: premium dark UI, EN/ZH page structure, responsive nav and sections.
-- Phase 2 complete: SEO metadata, sitemap/robots, local font optimization, perf budget tooling.
-- Phase 3 complete (baseline): lazy-loaded interactive demo shell on Home with reduced-motion compliance.
+Primary target: Vercel
 
-## Latest UI Update
+- Production domain: `findit.studio`
+- Preview deployments: Vercel preview URLs
+- Public static output remains compatible with static hosting workflows when API routes are not required.
 
-- `Resources` in top nav now includes a multilingual dropdown mega menu (EN/ZH synced) with reserved external links.
-- `Support` now ships a knowledge-base search scaffold (EN/ZH synced) with searchable placeholder cards and result panel for future content expansion.
+## Content Standards
 
-## Roadmap
+- Public copy should reflect real production workflows and measurable value.
+- Avoid over-claiming model internals or exposing unnecessary implementation detail.
+- Keep EN/ZH messaging aligned in meaning and tone.
 
-1. Replace demo shell placeholder visuals with real app UI assets after design refresh.
-2. Introduce optional stateful islands only if demo complexity requires richer interaction.
-3. Add JA content pack and run localization QA.
+## License
+
+All rights reserved by FinDIT.

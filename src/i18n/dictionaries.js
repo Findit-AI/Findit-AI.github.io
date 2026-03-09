@@ -3,7 +3,7 @@ export const dictionaries = {
     brand_name: 'FinDIT',
     meta_default_title: 'FinDIT',
     meta_default_description:
-      'FinDIT is a local-first video search app for creators. Find exact clips in seconds with natural language, transcript, and image search.',
+      'FinDIT is a local-first video retrieval app for creator teams. Search real footage by intent, transcript, and visual reference in seconds.',
 
     nav_home: 'Home',
     nav_blog: 'Blog',
@@ -18,6 +18,7 @@ export const dictionaries = {
     footer_column_product: 'Product',
     footer_link_blog: 'Blog',
     footer_link_support: 'Support',
+    footer_link_about: 'About Us',
     footer_link_discord: 'Discord',
     footer_link_contact: 'Contact',
     footer_link_features: 'Features',
@@ -46,7 +47,7 @@ export const dictionaries = {
     hero_display_line_1: 'Find the Exact Clip.',
     hero_display_line_2: 'In Seconds, Not Hours.',
     hero_subtitle:
-      'FinDIT lets creators search massive footage libraries with natural language, transcript lines, or reference images, with core processing kept on-device.',
+      'FinDIT helps teams search real footage by scene intent, dialogue lines, or visual reference while keeping core indexing and retrieval on-device.',
     cta_primary: 'Signup for Waitlist',
     cta_secondary: 'Explore Resources',
 
@@ -69,7 +70,7 @@ export const dictionaries = {
 
     home_feature_title: 'Built for real editing workflows',
     home_feature_subtitle:
-      'From ingest to export, FinDIT keeps retrieval fast, local, and production-ready.',
+      'From ingest to handoff, FinDIT reduces retrieval bottlenecks without forcing teams into cloud-first storage.',
     home_feature_1_title: 'Natural Language + Transcript Search',
     home_feature_1_body: 'Describe a scene or paste a line of dialogue to jump to the right moment.',
     home_feature_2_title: 'Portable Local Index',
@@ -78,9 +79,9 @@ export const dictionaries = {
     home_feature_3_body: 'Export selected matches as FCPXML or EDL for Final Cut Pro and DaVinci.',
 
     home_demo_title: 'Product Walkthrough Stage',
-    home_demo_heading: 'A cinematic full-screen stage for FinDIT workflow demos.',
+    home_demo_heading: 'A full-screen walkthrough of retrieval to timeline handoff.',
     home_demo_body:
-      'This immersive stage showcases query intent, ranked matches, and edit handoff in one continuous product flow.',
+      'This stage showcases a complete loop: query intent, ranked matches, and editor-ready handoff in one continuous flow.',
     home_demo_point_1: 'Natural language scene queries',
     home_demo_point_2: 'Transcript timecode jump',
     home_demo_point_3: 'FCPXML / EDL handoff preview',
@@ -104,13 +105,13 @@ export const dictionaries = {
     pricing_kicker: 'Transparent Plans',
     pricing_heading: 'Simple pricing for teams that move fast.',
     pricing_subtitle:
-      'Core local search remains free. Upgrade only when you need stronger cloud semantic quality.',
+      'Core local search remains free. Upgrade to Pro only when your team needs stronger cloud semantic quality at higher volume.',
     pricing_cycle_monthly: 'Monthly',
     pricing_cycle_yearly: 'Yearly',
     pricing_cycle_note: 'Annual view is calculated at 12x monthly (no annual discount yet).',
     pricing_banner_title: 'Cloud enhancement model',
     pricing_banner_body:
-      'Free keeps local indexing and privacy-first search. Trial and Pro add cloud semantic enhancement via OpenRouter.',
+      'Free keeps local indexing and privacy-first search. Pro adds cloud semantic enhancement via OpenRouter.',
     pricing_price_free: 'Free',
     pricing_per_month: '/ month',
     pricing_per_year: '/ year',
@@ -155,19 +156,19 @@ export const dictionaries = {
     support_quick_link_3: 'Backup & Restore',
 
     support_kb_card_1_title: 'FAQ',
-    support_kb_card_1_summary: 'Understand FinDIT workflows, workspace model, and collaboration fundamentals.',
+    support_kb_card_1_summary: 'Understand FinDIT retrieval workflows, workspace structure, and operating boundaries.',
     support_kb_card_1_keyword_1: 'faq',
     support_kb_card_1_keyword_2: 'questions',
     support_kb_card_1_keyword_3: 'answers',
 
     support_kb_card_2_title: 'Troubleshooting',
-    support_kb_card_2_summary: 'Diagnose search, sync, and access issues with focused recovery paths.',
+    support_kb_card_2_summary: 'Diagnose retrieval quality, indexing, and sync issues with focused recovery paths.',
     support_kb_card_2_keyword_1: 'bug',
     support_kb_card_2_keyword_2: 'error',
     support_kb_card_2_keyword_3: 'fix',
 
     support_kb_card_3_title: 'Getting Started',
-    support_kb_card_3_summary: 'Launch your team workspace quickly and map your first operating loop.',
+    support_kb_card_3_summary: 'Set up your first project library quickly and establish a repeatable retrieval loop.',
     support_kb_card_3_keyword_1: 'onboarding',
     support_kb_card_3_keyword_2: 'setup',
     support_kb_card_3_keyword_3: 'start',
@@ -202,16 +203,16 @@ export const dictionaries = {
       'Feature map covering search intelligence, action queues, and collaboration controls.',
     support_article_title_what_is_findit: 'What is FinDIT?',
     support_article_summary_what_is_findit:
-      'A concise explanation of FinDIT and where it fits in your team operating stack.',
+      'A concise explanation of FinDIT and where it fits in a real post-production stack.',
     support_article_title_workspace_model: 'How does the workspace model work?',
     support_article_summary_workspace_model:
-      'Understand workspace boundaries, project contexts, and shared operating rules.',
+      'Understand workspace boundaries, index scope, and shared operating rules.',
     support_article_title_permissions_and_roles: 'Permissions and Roles',
     support_article_summary_permissions_and_roles:
-      'Role scopes, owner controls, and practical permission patterns for growing teams.',
+      'Role scopes, owner controls, and practical permission patterns for growing production teams.',
     support_article_title_search_no_results: 'Search returns no useful signal',
     support_article_summary_search_no_results:
-      'Debug indexing scope, query intent, and filters when search quality drops.',
+      'Debug index scope, query intent, and filters when retrieval quality drops.',
     support_article_title_sync_lag: 'Data sync appears delayed',
     support_article_summary_sync_lag:
       'Checklist for queue health, network status, and stale snapshot recovery.',
@@ -220,7 +221,7 @@ export const dictionaries = {
       'Verify domain policy, sender setup, and fallback invite paths.',
     support_article_title_plans_and_billing: 'Plans and Billing',
     support_article_summary_plans_and_billing:
-      'Compare Free and Pro, and understand how the Trial evaluation window fits the upgrade flow.',
+      'Compare Free and Pro, and understand when cloud enhancement is worth enabling.',
     support_article_title_privacy_and_data: 'Privacy and Data Handling',
     support_article_summary_privacy_and_data:
       'Understand what stays local, when cloud calls happen, and how to control that boundary.',
@@ -229,14 +230,14 @@ export const dictionaries = {
       'Review current format coverage and practical recommendations for stable indexing.',
     support_article_title_export_to_editors: 'Export to Editing Apps',
     support_article_summary_export_to_editors:
-      'Move search results into Final Cut Pro and DaVinci workflows with minimal friction.',
+      'Move retrieval results into Final Cut Pro and DaVinci workflows with minimal friction.',
     support_article_placeholder_title: 'Content temporarily unavailable',
     support_article_placeholder_body:
       'This article is currently unavailable. Please return to Support categories and try another entry.',
 
     support_intro_title: 'Support that moves at product speed',
     support_intro_body:
-      'Use this channel for onboarding questions, documentation gaps, and operational support.',
+      'Use this channel for onboarding questions, retrieval workflow blockers, and operational support.',
     support_contact_title: 'Primary contact',
     support_contact_body: 'Reach the team through the official inbox.',
     support_contact_action: 'Email support',
@@ -246,7 +247,7 @@ export const dictionaries = {
     support_faq_q1: 'How do we request new resources?',
     support_faq_a1: 'Submit requests through support with context, owner, and expected timeline.',
     support_faq_q2: 'Where can I find product updates?',
-    support_faq_a2: 'Major updates are posted on the blog with linked resources when relevant.',
+    support_faq_a2: 'Major updates are posted on the blog with rollout context and workflow impact.',
     support_faq_q3: 'How should we report copy or localization gaps?',
     support_faq_a3: 'Send the affected page URL and language to support for triage.',
 
@@ -260,7 +261,7 @@ export const dictionaries = {
   zh: {
     brand_name: 'FinDIT',
     meta_default_title: 'FinDIT',
-    meta_default_description: 'FinDIT 是面向创作者的本地优先视频检索应用，用自然语言、台词和图片在秒级找到片段。',
+    meta_default_description: 'FinDIT 是面向创作者团队的本地优先视频检索产品，可按意图、台词和视觉参考秒级定位真实素材。',
 
     nav_home: '首页',
     nav_blog: '博客',
@@ -275,6 +276,7 @@ export const dictionaries = {
     footer_column_product: '产品',
     footer_link_blog: '博客',
     footer_link_support: '支持',
+    footer_link_about: '关于我们',
     footer_link_discord: 'Discord',
     footer_link_contact: '联系我们',
     footer_link_features: '功能',
@@ -302,7 +304,7 @@ export const dictionaries = {
     hero_kicker: '本地优先的视频检索',
     hero_display_line_1: '精准找到片段。',
     hero_display_line_2: '秒级完成，不再翻找。',
-    hero_subtitle: 'FinDIT 让创作者通过自然语言、台词内容或参考图片检索海量素材，核心能力全程在本机运行。',
+    hero_subtitle: 'FinDIT 让团队按场景意图、台词内容和视觉参考检索真实素材，核心索引与检索全程在本机完成。',
     cta_primary: '加入候补名单',
     cta_secondary: '查看资源',
 
@@ -323,7 +325,7 @@ export const dictionaries = {
     waitlist_form_error: '提交失败，请稍后重试。',
 
     home_feature_title: '为真实剪辑流程而生',
-    home_feature_subtitle: '从素材入库到时间线交付，FinDIT 让检索始终高速、本地、可投入生产。',
+    home_feature_subtitle: '从素材入库到时间线交接，FinDIT 专注消除检索瓶颈，而不是增加云端迁移负担。',
     home_feature_1_title: '自然语言 + 台词检索',
     home_feature_1_body: '描述画面或输入一句台词，直接定位到正确片段与时间码。',
     home_feature_2_title: '可迁移的本地索引',
@@ -332,8 +334,8 @@ export const dictionaries = {
     home_feature_3_body: '选中的结果可导出为 FCPXML / EDL，低摩擦进入 Final Cut Pro 与 DaVinci。',
 
     home_demo_title: '产品演示舞台',
-    home_demo_heading: '为 FinDIT 工作流预留的沉浸式全屏演示区。',
-    home_demo_body: '该沉浸式演示区聚焦展示查询、命中、交付的完整产品链路。',
+    home_demo_heading: '全屏展示从检索到时间线交接的完整链路。',
+    home_demo_body: '该演示区聚焦一条完整路径：查询意图、结果命中、剪辑可用的交付输出。',
     home_demo_point_1: '自然语言画面查询',
     home_demo_point_2: '台词时间码直达',
     home_demo_point_3: 'FCPXML / EDL 交接预览',
@@ -353,12 +355,12 @@ export const dictionaries = {
 
     pricing_kicker: '透明定价',
     pricing_heading: '为高速执行团队设计的简洁定价。',
-    pricing_subtitle: '核心本地搜索永久免费；仅在你需要更强语义质量时再升级云端增强。',
+    pricing_subtitle: '核心本地搜索永久免费；仅在团队进入高强度语义检索时再升级 Pro。',
     pricing_cycle_monthly: '按月',
     pricing_cycle_yearly: '按年',
     pricing_cycle_note: '按年视图为月费 x12 计算（当前暂无年付折扣）。',
     pricing_banner_title: '云端增强模型',
-    pricing_banner_body: 'Free 保留完整本地索引与隐私搜索；Trial/Pro 增加基于 OpenRouter 的云端语义增强。',
+    pricing_banner_body: 'Free 保留完整本地索引与隐私搜索；Pro 增加基于 OpenRouter 的云端语义增强。',
     pricing_price_free: '免费',
     pricing_per_month: '/ 月',
     pricing_per_year: '/ 年',
@@ -402,19 +404,19 @@ export const dictionaries = {
     support_quick_link_3: '备份与恢复',
 
     support_kb_card_1_title: '常见问题',
-    support_kb_card_1_summary: '了解 FinDIT 工作流、工作区模型与团队协作基础机制。',
+    support_kb_card_1_summary: '了解 FinDIT 检索工作流、工作区结构与关键运行边界。',
     support_kb_card_1_keyword_1: '问题',
     support_kb_card_1_keyword_2: '答案',
     support_kb_card_1_keyword_3: 'FAQ',
 
     support_kb_card_2_title: '故障排查',
-    support_kb_card_2_summary: '定位搜索、同步、权限等常见异常并快速恢复。',
+    support_kb_card_2_summary: '定位检索质量、索引与同步等常见异常并快速恢复。',
     support_kb_card_2_keyword_1: '错误',
     support_kb_card_2_keyword_2: '修复',
     support_kb_card_2_keyword_3: '排障',
 
     support_kb_card_3_title: '快速上手',
-    support_kb_card_3_summary: '快速启动团队工作区并建立第一条执行闭环。',
+    support_kb_card_3_summary: '快速启动首个项目素材库，并建立可复用的检索闭环。',
     support_kb_card_3_keyword_1: '入门',
     support_kb_card_3_keyword_2: '设置',
     support_kb_card_3_keyword_3: '开始',
@@ -446,30 +448,30 @@ export const dictionaries = {
     support_article_summary_video_tutorials: '覆盖命令流、信号审阅与任务交接的短视频导览结构。',
     support_article_summary_all_features: '集中查看搜索智能、行动队列与协作控制等能力地图。',
     support_article_title_what_is_findit: 'FinDIT 是什么？',
-    support_article_summary_what_is_findit: '简要说明 FinDIT 在团队执行体系中的定位与价值。',
+    support_article_summary_what_is_findit: '简要说明 FinDIT 在真实后期制作体系中的定位与价值。',
     support_article_title_workspace_model: '工作区模型如何运作？',
-    support_article_summary_workspace_model: '理解工作区边界、项目上下文与共享执行规则。',
+    support_article_summary_workspace_model: '理解工作区边界、索引范围与共享执行规则。',
     support_article_title_permissions_and_roles: '权限与角色',
-    support_article_summary_permissions_and_roles: '面向增长团队的角色范围、Owner 控制与授权实践。',
+    support_article_summary_permissions_and_roles: '面向制作团队的角色范围、Owner 控制与授权实践。',
     support_article_title_search_no_results: '搜索结果无有效信号',
-    support_article_summary_search_no_results: '当检索质量下降时，排查索引范围、查询意图与筛选器。',
+    support_article_summary_search_no_results: '当检索质量下降时，排查索引范围、查询意图与筛选条件。',
     support_article_title_sync_lag: '数据同步延迟',
     support_article_summary_sync_lag: '排查队列健康、网络状态与快照陈旧恢复流程。',
     support_article_title_invite_delivery: '邀请邮件未送达成员',
     support_article_summary_invite_delivery: '检查域名策略、发送配置与替代邀请路径。',
     support_article_title_plans_and_billing: '套餐与计费',
-    support_article_summary_plans_and_billing: '对比 Free 与 Pro，并了解 Trial 评估窗口在升级流程中的作用。',
+    support_article_summary_plans_and_billing: '对比 Free 与 Pro，并判断何时需要启用云端增强。',
     support_article_title_privacy_and_data: '隐私与数据处理',
     support_article_summary_privacy_and_data: '明确哪些数据始终本地、何时触发云端调用，以及如何控制边界。',
     support_article_title_supported_formats: '支持的格式',
     support_article_summary_supported_formats: '查看当前格式覆盖范围与更稳定索引的实践建议。',
     support_article_title_export_to_editors: '导出到剪辑软件',
-    support_article_summary_export_to_editors: '将搜索结果低摩擦导入 Final Cut Pro 和 DaVinci 工作流。',
+    support_article_summary_export_to_editors: '将检索结果低摩擦导入 Final Cut Pro 与 DaVinci 工作流。',
     support_article_placeholder_title: '内容暂时不可用',
     support_article_placeholder_body: '该文档当前不可访问，请返回支持分类后查看其他条目。',
 
     support_intro_title: '和产品速度一致的支持体系',
-    support_intro_body: '可通过该渠道提交 onboarding 问题、文档缺口与协作支持需求。',
+    support_intro_body: '可通过该渠道提交 onboarding 问题、检索流程阻塞与协作支持需求。',
     support_contact_title: '主要联系渠道',
     support_contact_body: '请通过官方邮箱与团队联系。',
     support_contact_action: '发送邮件',
@@ -479,7 +481,7 @@ export const dictionaries = {
     support_faq_q1: '如何申请新增资源？',
     support_faq_a1: '请通过支持渠道提交背景、负责人与预期时间。',
     support_faq_q2: '在哪里查看产品更新？',
-    support_faq_a2: '重要更新会发布在博客，并附相关资源链接。',
+    support_faq_a2: '重要更新会发布在博客，并附上线背景与流程影响说明。',
     support_faq_q3: '如何反馈文案或翻译缺失？',
     support_faq_a3: '请提供页面 URL 与语言版本，支持团队会进行分派处理。',
 
@@ -508,6 +510,7 @@ export const requiredKeys = [
   'footer_column_product',
   'footer_link_blog',
   'footer_link_support',
+  'footer_link_about',
   'footer_link_discord',
   'footer_link_contact',
   'footer_link_features',

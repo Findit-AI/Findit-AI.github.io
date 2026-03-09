@@ -1,0 +1,67 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+const locale = 'en';
+---
+
+<MainLayout
+  locale={locale}
+  title="FinDIT | About Us"
+  description="FinDIT is building the local-first retrieval layer for real video production workflows."
+>
+  <section class="full-bleed about-hero reveal">
+    <div class="content-limit about-hero-inner">
+      <p class="section-kicker">About FinDIT</p>
+      <h1>Built for the retrieval bottleneck in real editing work.</h1>
+      <p>
+        Every production team can edit. Fewer teams can reliably find the right clip fast under deadline pressure.
+        FinDIT exists to solve that gap.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-block reveal">
+    <article class="surface-muted about-shell">
+      <div class="about-grid">
+        <p class="about-label">What we are building</p>
+        <div class="about-copy">
+          <p>
+            FinDIT is a local-first video retrieval product for creators, assistant editors, and post teams working on
+            real media libraries.
+          </p>
+          <p>
+            We treat retrieval as infrastructure: searchable clips, predictable indexing, and editor-ready handoff,
+            without forcing teams into upload-first workflows.
+          </p>
+        </div>
+      </div>
+
+      <div class="about-grid">
+        <p class="about-label">Product principles</p>
+        <ul class="about-points">
+          <li>Core usefulness must stay available locally.</li>
+          <li>Cloud enhancement should improve hard queries, not gate baseline value.</li>
+          <li>The product should fit existing editing pipelines, not replace creative tools.</li>
+          <li>Speed, clarity, and operational reliability matter more than feature theater.</li>
+        </ul>
+      </div>
+
+      <div class="about-grid">
+        <p class="about-label">Long-term direction</p>
+        <div class="about-copy">
+          <p>
+            Our goal is to make indexed footage accessible to both humans and future assistant workflows through a
+            structured retrieval layer.
+          </p>
+          <p>
+            FinDIT is not an AI video generation toy. It is an execution layer for teams working with real footage,
+            real deadlines, and real delivery constraints.
+          </p>
+          <p>
+            Contact us at <a href="mailto:support@findit.studio">support@findit.studio</a>.
+          </p>
+        </div>
+      </div>
+    </article>
+  </section>
+</MainLayout>

@@ -30,7 +30,7 @@ function categoryName(category: string | undefined): string {
   return categoryLabels[category] ?? category.replace(/[-_]/g, ' ').replace(/\b\w/g, (m) => m.toUpperCase());
 }
 
-const subtitle = 'Product notes, workflow guides, and release context for teams moving fast with FinDIT.';
+const subtitle = 'Field notes, workflow guides, and release context for teams solving retrieval bottlenecks with FinDIT.';
 const categories = Array.from(new Set(posts.map((post) => categoryName(post.data.category))));
 ---
 
