@@ -23,6 +23,7 @@
     "@supabase/supabase-js": "^2.98.0",
     "@upstash/ratelimit": "^2.0.8",
     "@upstash/redis": "^1.36.4",
+    "@vercel/analytics": "^1.6.1",
     "astro": "^5.17.1",
     "gray-matter": "^4.0.3",
     "resend": "^6.9.3"

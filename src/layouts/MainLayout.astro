@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
 import instrumentSerif400 from '@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2?url';
 import spaceGrotesk400 from '@fontsource/space-grotesk/files/space-grotesk-latin-400-normal.woff2?url';
 import spaceGrotesk700 from '@fontsource/space-grotesk/files/space-grotesk-latin-700-normal.woff2?url';
@@ -111,6 +112,7 @@ const resourcesActive = isActive('/resources');
     <link rel="preload" href={spaceGrotesk400} as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href={spaceGrotesk700} as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href={instrumentSerif400} as="font" type="font/woff2" crossorigin="anonymous" />
+    <Analytics />
   </head>
   <body>
     <header class="site-header" data-site-header>
