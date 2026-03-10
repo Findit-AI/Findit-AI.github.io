@@ -20,6 +20,12 @@ export interface SupportKbArticle {
   linkedFromLearn: boolean;
 }
 
+export interface SupportQuickLinkTarget {
+  id: 'lost-access' | 'education-discount' | 'backup-and-restore';
+  labelKey: 'support_quick_link_1' | 'support_quick_link_2' | 'support_quick_link_3';
+  href: string;
+}
+
 export const supportKbCategories: readonly SupportKbCategory[] = [
   {
     id: 'faq',
@@ -143,6 +149,30 @@ export const supportKbArticles: readonly SupportKbArticle[] = [
     summaryKey: 'support_article_summary_invite_delivery',
     linkedFromLearn: false,
   },
+  {
+    id: 'lost-access',
+    category: 'troubleshooting',
+    slug: 'lost-access',
+    titleKey: 'support_article_title_lost_access',
+    summaryKey: 'support_article_summary_lost_access',
+    linkedFromLearn: false,
+  },
+  {
+    id: 'education-discount',
+    category: 'faq',
+    slug: 'education-discount',
+    titleKey: 'support_article_title_education_discount',
+    summaryKey: 'support_article_summary_education_discount',
+    linkedFromLearn: false,
+  },
+  {
+    id: 'backup-and-restore',
+    category: 'faq',
+    slug: 'backup-and-restore',
+    titleKey: 'support_article_title_backup_and_restore',
+    summaryKey: 'support_article_summary_backup_and_restore',
+    linkedFromLearn: false,
+  },
 ];
 
 export function buildSupportCategoryPath(category: SupportCategoryId | string): string {
@@ -175,6 +205,29 @@ export function getLearnResourceTargets(locale: Locale): Array<{ id: SupportKbAr
       id: entry.id,
       href: localizePath(locale, buildSupportArticlePath(entry.category, entry.slug)),
     }));
+}
+
+export function getSupportQuickLinkTargets(locale: Locale): SupportQuickLinkTarget[] {
+  const routeById = new Map(supportKbArticles.map((entry) => [entry.id, buildSupportArticlePath(entry.category, entry.slug)]));
+  const fallbackPath = buildSupportCategoryPath('faq');
+
+  return [
+    {
+      id: 'lost-access',
+      labelKey: 'support_quick_link_1',
+      href: localizePath(locale, routeById.get('lost-access') ?? fallbackPath),
+    },
+    {
+      id: 'education-discount',
+      labelKey: 'support_quick_link_2',
+      href: localizePath(locale, routeById.get('education-discount') ?? fallbackPath),
+    },
+    {
+      id: 'backup-and-restore',
+      labelKey: 'support_quick_link_3',
+      href: localizePath(locale, routeById.get('backup-and-restore') ?? fallbackPath),
+    },
+  ];
 }
 
 export function getSupportArticleByRoute(category: string, slug: string): SupportKbArticle | undefined {

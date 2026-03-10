@@ -3,6 +3,7 @@ import {
   buildSupportCategoryPath,
   getArticlesByCategory,
   getCategoryCardTargets,
+  getSupportQuickLinkTargets,
   getSupportCategoryBySlug,
   getLearnResourceTargets,
   getSupportArticleByRoute,
@@ -73,5 +74,19 @@ describe('support knowledge base routes', () => {
 
   it('builds canonical category path helper', () => {
     expect(buildSupportCategoryPath('faq')).toBe('/support/faq');
+  });
+
+  it('builds localized routes for support quick links', () => {
+    expect(getSupportQuickLinkTargets('en').map((item) => item.href)).toEqual([
+      '/support/troubleshooting/lost-access',
+      '/support/faq/education-discount',
+      '/support/faq/backup-and-restore',
+    ]);
+
+    expect(getSupportQuickLinkTargets('zh').map((item) => item.href)).toEqual([
+      '/zh/support/troubleshooting/lost-access',
+      '/zh/support/faq/education-discount',
+      '/zh/support/faq/backup-and-restore',
+    ]);
   });
 });

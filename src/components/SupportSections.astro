@@ -4,6 +4,7 @@ import {
   buildSupportArticlePath,
   buildSupportCategoryPath,
   getCategoryCardTargets,
+  getSupportQuickLinkTargets,
   supportKbArticles,
   supportKbCategories,
 } from '../support/kb';
@@ -14,11 +15,10 @@ interface Props {
 
 const { locale } = Astro.props as Props;
 
-const quickLinks = [
-  { label: t(locale, 'support_quick_link_1') ?? '', href: '#' },
-  { label: t(locale, 'support_quick_link_2') ?? '', href: '#' },
-  { label: t(locale, 'support_quick_link_3') ?? '', href: '#' },
-];
+const quickLinks = getSupportQuickLinkTargets(locale).map((item) => ({
+  label: t(locale, item.labelKey) ?? '',
+  href: item.href,
+}));
 
 const categoryTargets = new Map(getCategoryCardTargets(locale).map((item) => [item.id, item.href]));
 

@@ -216,6 +216,15 @@ export const dictionaries = {
     support_article_title_invite_delivery: 'Invites are not reaching teammates',
     support_article_summary_invite_delivery:
       'Verify domain policy, sender setup, and fallback invite paths.',
+    support_article_title_lost_access: 'Lost access to workspace',
+    support_article_summary_lost_access:
+      'Regain access through invite checks, account verification, and owner-side recovery steps.',
+    support_article_title_education_discount: 'Education Discount',
+    support_article_summary_education_discount:
+      'Eligibility scope, required proof, and activation steps for student and educator teams.',
+    support_article_title_backup_and_restore: 'Backup and Restore',
+    support_article_summary_backup_and_restore:
+      'Protect indexes and project context across drive moves, reinstalls, and device replacement.',
     support_article_title_plans_and_billing: 'Plans and Billing',
     support_article_summary_plans_and_billing:
       'Compare Free and Pro, and understand when cloud enhancement is worth enabling.',
@@ -454,6 +463,12 @@ export const dictionaries = {
     support_article_summary_sync_lag: '排查队列健康、网络状态与快照陈旧恢复流程。',
     support_article_title_invite_delivery: '邀请邮件未送达成员',
     support_article_summary_invite_delivery: '检查域名策略、发送配置与替代邀请路径。',
+    support_article_title_lost_access: '工作区访问丢失',
+    support_article_summary_lost_access: '通过邀请校验、账号确认与 Owner 恢复步骤快速找回访问权限。',
+    support_article_title_education_discount: '教育优惠',
+    support_article_summary_education_discount: '了解申请资格、证明材料与学生/教师团队的开通流程。',
+    support_article_title_backup_and_restore: '备份与恢复',
+    support_article_summary_backup_and_restore: '在换盘、重装或设备更换场景下保护索引与项目上下文。',
     support_article_title_plans_and_billing: '套餐与计费',
     support_article_summary_plans_and_billing: '对比 Free 与 Pro，并判断何时需要启用云端增强。',
     support_article_title_privacy_and_data: '隐私与数据处理',
@@ -617,6 +632,12 @@ export const requiredKeys = [
   'support_article_summary_sync_lag',
   'support_article_title_invite_delivery',
   'support_article_summary_invite_delivery',
+  'support_article_title_lost_access',
+  'support_article_summary_lost_access',
+  'support_article_title_education_discount',
+  'support_article_summary_education_discount',
+  'support_article_title_backup_and_restore',
+  'support_article_summary_backup_and_restore',
   'support_article_title_plans_and_billing',
   'support_article_summary_plans_and_billing',
   'support_article_title_privacy_and_data',

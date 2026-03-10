@@ -621,6 +621,138 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
       ],
     },
   },
+  'lost-access': {
+    en: {
+      intro: 'If teammates suddenly lose workspace access, recovery is usually quick when role ownership and invitation state are verified in order.',
+      sections: [
+        {
+          title: 'Immediate Checks',
+          points: [
+            'Confirm the user is signing in with the same email address that received the invite.',
+            'Check whether the invite has expired or was accepted under another account.',
+            'Verify the workspace owner did not revoke role access during cleanup.',
+          ],
+        },
+        {
+          title: 'Recovery Steps',
+          points: [
+            'Re-send a fresh invite from Owner settings and remove stale pending invites.',
+            'Ask the user to accept from the same browser session used for sign-in.',
+            'If still blocked, capture timestamp and account email before contacting support.',
+          ],
+        },
+      ],
+    },
+    zh: {
+      intro: '成员突然失去工作区访问时，只要按顺序核对角色归属与邀请状态，通常都能快速恢复。',
+      sections: [
+        {
+          title: '第一步核查',
+          points: [
+            '确认成员登录邮箱与收到邀请的邮箱一致。',
+            '检查邀请是否过期，或是否被另一个账号误领。',
+            '确认 Owner 在权限清理时未误删该成员角色。',
+          ],
+        },
+        {
+          title: '恢复流程',
+          points: [
+            '由 Owner 重新发送新邀请，并清理旧的待处理邀请。',
+            '让成员在同一登录会话中直接完成邀请接受。',
+            '若仍失败，记录时间戳和账号邮箱后再联系支持。',
+          ],
+        },
+      ],
+    },
+  },
+  'education-discount': {
+    en: {
+      intro: 'Education Discount is intended for verified students and educators running non-commercial learning workflows.',
+      sections: [
+        {
+          title: 'Eligibility',
+          points: [
+            'Applicant must be a current student, teacher, or institution-affiliated staff.',
+            'Requests should include a valid school email or enrollment/employment proof.',
+            'Discount scope may vary by plan cycle and regional policy.',
+          ],
+        },
+        {
+          title: 'How to Apply',
+          points: [
+            'Submit your request through the waitlist/support contact with verification info.',
+            'Use the same account email you plan to activate for billing.',
+            'After approval, apply the provided code before first paid cycle starts.',
+          ],
+        },
+      ],
+    },
+    zh: {
+      intro: '教育优惠面向已验证的学生与教育工作者，适用于非商业化学习场景。',
+      sections: [
+        {
+          title: '资格范围',
+          points: [
+            '申请人需为在读学生、教师或院校关联人员。',
+            '申请时请提供学校邮箱或在读/在职证明。',
+            '优惠范围可能受套餐周期与区域政策影响。',
+          ],
+        },
+        {
+          title: '申请流程',
+          points: [
+            '通过 waitlist/support 联系方式提交申请与验证信息。',
+            '使用你后续要激活计费的同一邮箱提交。',
+            '审核通过后，在首个付费周期开始前使用优惠码。',
+          ],
+        },
+      ],
+    },
+  },
+  'backup-and-restore': {
+    en: {
+      intro: 'Treat backup as an operational habit: protect both source media and FinDIT index context so recovery does not interrupt delivery.',
+      sections: [
+        {
+          title: 'What to Back Up',
+          points: [
+            'Source media folders and project selects should follow your normal backup policy.',
+            'Keep FinDIT index-related metadata snapshots for active productions.',
+            'Store export artifacts and handoff files in a versioned project location.',
+          ],
+        },
+        {
+          title: 'Restore Playbook',
+          points: [
+            'Mount replacement drive first, then validate folder path consistency.',
+            'Re-open FinDIT library and let it reconcile portable indexes before re-indexing.',
+            'Run a known query set to verify result quality after restoration.',
+          ],
+        },
+      ],
+    },
+    zh: {
+      intro: '备份应成为固定操作习惯：同时保护源素材和 FinDIT 索引上下文，恢复时才不会打断交付。',
+      sections: [
+        {
+          title: '需要备份的内容',
+          points: [
+            '源素材目录与精选素材按既有备份策略执行。',
+            '活跃项目建议保留 FinDIT 索引相关元数据快照。',
+            '导出产物与交接文件放在可追溯版本目录中。',
+          ],
+        },
+        {
+          title: '恢复流程',
+          points: [
+            '先挂载替换硬盘，再核对目录路径一致性。',
+            '重新打开 FinDIT 素材库，优先让可迁移索引自行对齐。',
+            '用固定查询集回归验证恢复后的检索质量。',
+          ],
+        },
+      ],
+    },
+  },
 };
 
 export function getSupportArticleContent(articleId: string, locale: Locale): SupportArticleContent | null {
