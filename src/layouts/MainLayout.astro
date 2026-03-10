@@ -115,7 +115,10 @@ const resourcesActive = isActive('/resources');
   <body>
     <header class="site-header" data-site-header>
       <div class="site-header-inner">
-        <a class="brand-link" href={localizePath(locale, '/')}>{t(locale, 'brand_name') ?? 'FinDIT'}</a>
+        <a class="brand-link" href={localizePath(locale, '/')} aria-label={t(locale, 'brand_name') ?? 'FinDIT'}>
+          <img class="brand-logo" src="/logo-white.png" alt="" width="24" height="24" aria-hidden="true" />
+          <span class="brand-wordmark">{t(locale, 'brand_name') ?? 'FinDIT'}</span>
+        </a>
         <button
           class="mobile-nav-toggle"
           type="button"
