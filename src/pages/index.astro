@@ -1,10 +1,48 @@
 ---
 import HomeSections from '../components/HomeSections.astro';
+import { CHINESE_LOCALE_PREFIX, LOCALE_PREFERENCE_STORAGE_KEY } from '../i18n/browser-locale';
 import MainLayout from '../layouts/MainLayout.astro';
 
 const locale = 'en';
+const zhHomepagePath = '/zh';
 ---
 
 <MainLayout locale={locale} title="FinDIT | Home">
   <HomeSections locale={locale} />
+  <script
+    is:inline
+    data-home-locale-redirect
+    define:vars={{ chineseLocalePrefix: CHINESE_LOCALE_PREFIX, localePreferenceStorageKey: LOCALE_PREFERENCE_STORAGE_KEY, zhHomepagePath }}
+  >
+    let preferredLocale = null;
+
+    try {
+      preferredLocale = localStorage.getItem(localePreferenceStorageKey);
+    } catch {
+      preferredLocale = null;
+    }
+
+    const browserLanguages =
+      Array.isArray(navigator.languages) && navigator.languages.length > 0
+        ? navigator.languages
+        : [navigator.language];
+    const firstLanguage = browserLanguages.find((value) => typeof value === 'string');
+
+    let shouldRedirect = false;
+
+    if (preferredLocale === 'en') {
+      shouldRedirect = false;
+    } else if (preferredLocale === 'zh') {
+      shouldRedirect = true;
+    } else {
+      const normalizedLanguage = typeof firstLanguage === 'string' ? firstLanguage.trim().toLowerCase() : '';
+      shouldRedirect =
+        normalizedLanguage.startsWith(chineseLocalePrefix) &&
+        (normalizedLanguage === 'zh-cn' || normalizedLanguage === 'zh-hans');
+    }
+
+    if (shouldRedirect && window.location.pathname === '/') {
+      window.location.replace(zhHomepagePath);
+    }
+  </script>
 </MainLayout>

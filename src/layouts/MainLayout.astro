@@ -4,6 +4,7 @@ import Analytics from '@vercel/analytics/astro';
 import instrumentSerif400 from '@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2?url';
 import spaceGrotesk400 from '@fontsource/space-grotesk/files/space-grotesk-latin-400-normal.woff2?url';
 import spaceGrotesk700 from '@fontsource/space-grotesk/files/space-grotesk-latin-700-normal.woff2?url';
+import { LOCALE_PREFERENCE_STORAGE_KEY } from '../i18n/browser-locale';
 import { localizePath, resolveLocale, stripLocalePrefix, t, type Locale } from '../i18n/runtime';
 import { buildSeoLinks } from '../i18n/seo';
 import { getLearnResourceTargets } from '../support/kb';
@@ -195,9 +196,9 @@ const resourcesActive = isActive('/resources');
 
         <div class="lang-switch" aria-label="Language switcher" data-lang-switch>
           <span>{t(locale, 'nav_language') ?? 'Language'}</span>
-          <a href={localizePath('en', basePath)}>EN</a>
+          <a href={localizePath('en', basePath)} data-locale-preference="en">EN</a>
           <span>/</span>
-          <a href={localizePath('zh', basePath)}>中文</a>
+          <a href={localizePath('zh', basePath)} data-locale-preference="zh">中文</a>
         </div>
       </div>
     </header>
@@ -305,11 +306,12 @@ const resourcesActive = isActive('/resources');
       </div>
     </footer>
 
-    <script is:inline>
+    <script is:inline define:vars={{ localePreferenceStorageKey: LOCALE_PREFERENCE_STORAGE_KEY }}>
       (() => {
         const siteHeader = document.querySelector('[data-site-header]');
         const mobileNavToggle = document.querySelector('[data-mobile-nav-toggle]');
         const primaryNav = document.querySelector('[data-primary-nav]');
+        const localeSwitchLinks = document.querySelectorAll('[data-locale-preference]');
 
         const dropdowns = document.querySelectorAll('[data-nav-dropdown]');
         const closeMobileMenu = () => {
@@ -397,6 +399,21 @@ const resourcesActive = isActive('/resources');
             }
           });
         }
+
+        localeSwitchLinks.forEach((link) => {
+          if (!(link instanceof HTMLAnchorElement)) return;
+
+          link.addEventListener('click', () => {
+            const preferredLocale = link.dataset.localePreference;
+            if (!preferredLocale) return;
+
+            try {
+              localStorage.setItem(localePreferenceStorageKey, preferredLocale);
+            } catch {
+              // Ignore storage failures and fall back to browser language detection.
+            }
+          });
+        });
 
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
           return;
