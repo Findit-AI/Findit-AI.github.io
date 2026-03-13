@@ -43,12 +43,21 @@ export function mountSupportKb(root: Element | null, config: SupportKbConfig): v
     return;
 
   const renderResults = (items: KbEntry[]) => {
-    resultsList.innerHTML = items
-      .map(
-        (entry) =>
-          `<li><a class="support-result-link" href="${entry.href}"><strong>${entry.title}</strong><span>${entry.summary}</span></a></li>`,
-      )
-      .join('');
+    resultsList.replaceChildren(
+      ...items.map((entry) => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.className = 'support-result-link';
+        a.href = entry.href;
+        const strong = document.createElement('strong');
+        strong.textContent = entry.title;
+        const span = document.createElement('span');
+        span.textContent = entry.summary;
+        a.append(strong, span);
+        li.appendChild(a);
+        return li;
+      }),
+    );
   };
 
   const suggested = config.suggestedIds
@@ -73,17 +82,28 @@ export function mountSupportKb(root: Element | null, config: SupportKbConfig): v
     const options = hasQuery ? items.slice(0, 6) : suggested.slice(0, 6);
 
     if (options.length === 0) {
-      optionsList.innerHTML = '';
+      optionsList.replaceChildren();
       optionsPanel.hidden = true;
       return;
     }
 
-    optionsList.innerHTML = options
-      .map(
-        (entry) =>
-          `<li><button type="button" class="support-search-option" data-support-search-option data-href="${entry.href}"><strong>${entry.title}</strong><span>${entry.summary}</span></button></li>`,
-      )
-      .join('');
+    optionsList.replaceChildren(
+      ...options.map((entry) => {
+        const li = document.createElement('li');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'support-search-option';
+        button.setAttribute('data-support-search-option', '');
+        button.setAttribute('data-href', entry.href);
+        const strong = document.createElement('strong');
+        strong.textContent = entry.title;
+        const span = document.createElement('span');
+        span.textContent = entry.summary;
+        button.append(strong, span);
+        li.appendChild(button);
+        return li;
+      }),
+    );
     optionsPanel.hidden = false;
   };
 
@@ -110,7 +130,7 @@ export function mountSupportKb(root: Element | null, config: SupportKbConfig): v
     resultCount.textContent = `${matched.length} ${config.resultLabel}`;
 
     if (matched.length === 0) {
-      resultsList.innerHTML = '';
+      resultsList.replaceChildren();
       emptyState.textContent = config.emptyMessage;
       emptyState.style.display = '';
       if (showOptions) {

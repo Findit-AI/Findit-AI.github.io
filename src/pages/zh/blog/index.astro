@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import MainLayout from '../../../layouts/MainLayout.astro';
 import invalidContent from '../../../generated/content-invalid.json';
 import { t } from '../../../i18n/runtime';
+import { getCategoryName, getDateFormatter, getBlogSubtitle } from '../../../blog/blog-utils';
 
 const locale = 'zh';
 const blocked = new Set(invalidContent.invalidByCollection.blog ?? []);
@@ -11,27 +12,9 @@ const posts = (await getCollection('blog', ({ data }) => data.locale === locale 
   .filter((entry) => !blocked.has(entry.slug))
   .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
 
-const categoryLabels: Record<string, string> = {
-  announcement: '公告',
-  product: '产品',
-  engineering: '工程',
-  workflow: '工作流',
-  changelog: '更新日志',
-};
-
-const formatDate = new Intl.DateTimeFormat('zh-CN', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
-
-function categoryName(category: string | undefined): string {
-  if (!category) return '动态';
-  return categoryLabels[category] ?? category;
-}
-
-const subtitle = '围绕“检索瓶颈”这一核心问题，持续记录 FinDIT 的产品更新、工作流实践与发布背景。';
-const categories = Array.from(new Set(posts.map((post) => categoryName(post.data.category))));
+const formatDate = getDateFormatter(locale);
+const subtitle = getBlogSubtitle(locale);
+const categories = Array.from(new Set(posts.map((post) => getCategoryName(locale, post.data.category))));
 ---
 
 <MainLayout locale={locale} title="FinDIT | 博客">
@@ -43,8 +26,8 @@ const categories = Array.from(new Set(posts.map((post) => categoryName(post.data
 
       {categories.length > 0 ? (
         <div class="blog-category-row" aria-label="博客分类">
-          <span class="blog-category-chip is-active">全部</span>
-          {categories.map((category) => <span class="blog-category-chip">{category}</span>)}
+          <button class="blog-category-chip is-active" type="button">全部</button>
+          {categories.map((category) => <button class="blog-category-chip" type="button">{category}</button>)}
         </div>
       ) : null}
     </header>
@@ -57,7 +40,7 @@ const categories = Array.from(new Set(posts.map((post) => categoryName(post.data
           {posts.map((entry) => (
             <a class="blog-list-card" href={`/zh/blog/${entry.slug}`}>
               <p class="blog-list-card-meta">
-                <span>{categoryName(entry.data.category)}</span>
+                <span>{getCategoryName(locale, entry.data.category)}</span>
                 <span aria-hidden="true">·</span>
                 <span>{formatDate.format(entry.data.publishedAt)}</span>
               </p>

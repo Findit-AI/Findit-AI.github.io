@@ -501,7 +501,6 @@ export const dictionaries = {
     error_not_found_body: '该页面可能已移动，或内容暂时不可用。',
     error_back_home: '返回首页',
   },
-  ja: {},
 };
 
 export const requiredKeys = [

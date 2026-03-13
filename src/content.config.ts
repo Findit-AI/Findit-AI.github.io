@@ -3,8 +3,8 @@ import { defineCollection, z } from 'astro:content';
 const sharedFields = {
   title: z.string().min(1),
   description: z.string().min(1),
-  locale: z.enum(['en', 'zh', 'ja']),
-  publishedAt: z.coerce.date(),
+  locale: z.enum(['en', 'zh']),
+  publishedAt: z.coerce.date().refine((d) => d <= new Date(), { message: 'publishedAt must not be in the future' }),
   updatedAt: z.coerce.date().optional(),
   draft: z.boolean().default(false),
 };

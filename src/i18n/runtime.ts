@@ -1,7 +1,7 @@
 import { dictionaries } from './dictionaries.js';
 import { translate } from './translate';
 
-export const SUPPORTED_LOCALES = ['en', 'zh', 'ja'] as const;
+export const SUPPORTED_LOCALES = ['en', 'zh'] as const;
 export type Locale = (typeof SUPPORTED_LOCALES)[number];
 
 function hasPrefix(pathname: string, prefix: string): boolean {
@@ -10,13 +10,11 @@ function hasPrefix(pathname: string, prefix: string): boolean {
 
 export function resolveLocale(pathname: string): Locale {
   if (hasPrefix(pathname, '/zh')) return 'zh';
-  if (hasPrefix(pathname, '/ja')) return 'ja';
   return 'en';
 }
 
 export function stripLocalePrefix(pathname: string): string {
   if (hasPrefix(pathname, '/zh')) return pathname.replace(/^\/zh/, '') || '/';
-  if (hasPrefix(pathname, '/ja')) return pathname.replace(/^\/ja/, '') || '/';
   return pathname || '/';
 }
 
