@@ -299,7 +299,7 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
           points: [
             'Owner 负责目录结构与索引策略。',
             '剪辑师与助理聚焦检索、审阅与导出。',
-            '支持负责人维护排障与 onboarding 文档。',
+            '支持负责人维护排障与入门引导文档。',
           ],
         },
         {
@@ -613,7 +613,7 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
         {
           title: '兜底方案',
           points: [
-            '紧急 onboarding 可先用手动分享链接。',
+            '紧急情况下可先用手动分享链接。',
             '让对方将发件域加入白名单。',
             '策略更新确认后再重发邀请。',
           ],
@@ -701,7 +701,7 @@ const articleContent: Record<string, { en: SupportArticleContent; zh: SupportArt
         {
           title: '申请流程',
           points: [
-            '通过 waitlist/support 联系方式提交申请与验证信息。',
+            '通过候补名单或支持渠道提交申请与验证信息。',
             '使用你后续要激活计费的同一邮箱提交。',
             '审核通过后，在首个付费周期开始前使用优惠码。',
           ],
