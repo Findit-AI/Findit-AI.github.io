@@ -22,53 +22,15 @@ const featureCards = [
   },
 ];
 
-const demoScenes = [
-  {
-    id: 'signal',
-    name: t(locale, 'home_demo_scene_1_name') ?? 'Signal Stream',
-    summary: t(locale, 'home_demo_scene_1_summary') ?? '',
-    path: 'findit://signal-stream/live',
-    chips: [
-      t(locale, 'home_demo_point_1') ?? '',
-      t(locale, 'home_demo_point_2') ?? '',
-      t(locale, 'home_demo_point_3') ?? '',
-    ],
-    lineWidths: [100, 82, 93, 70, 60],
-    hue: 'red',
-  },
-  {
-    id: 'intent',
-    name: t(locale, 'home_demo_scene_2_name') ?? 'Intent Map',
-    summary: t(locale, 'home_demo_scene_2_summary') ?? '',
-    path: 'findit://intent-map/cluster',
-    chips: [
-      t(locale, 'home_demo_point_2') ?? '',
-      t(locale, 'home_demo_point_3') ?? '',
-      t(locale, 'home_demo_point_1') ?? '',
-    ],
-    lineWidths: [88, 74, 95, 66, 58],
-    hue: 'blue',
-  },
-  {
-    id: 'action',
-    name: t(locale, 'home_demo_scene_3_name') ?? 'Action Queue',
-    summary: t(locale, 'home_demo_scene_3_summary') ?? '',
-    path: 'findit://action-queue/ready',
-    chips: [
-      t(locale, 'home_demo_point_3') ?? '',
-      t(locale, 'home_demo_point_1') ?? '',
-      t(locale, 'home_demo_point_2') ?? '',
-    ],
-    lineWidths: [92, 78, 84, 72, 62],
-    hue: 'violet',
-  },
+const demoVideos = [
+  { title: 'Aerial Coastline_001.mov', duration: '00:14', res: '4K', date: '2023-10-24', seed: 'coast' },
+  { title: 'Cyberpunk City Rain.mp4', duration: '00:08', res: '4K', date: '2023-10-22', seed: 'cyber' },
+  { title: 'Mountain Hike POV.mp4', duration: '01:20', res: '1080p', date: '2023-10-20', seed: 'hike' },
+  { title: 'Coffee Pour Slowmo.mov', duration: '00:30', res: '8K', date: '2023-10-18', seed: 'coffee' },
+  { title: 'Subway Crowd Timelapse.mp4', duration: '00:10', res: '4K', date: '2023-10-15', seed: 'subway' },
+  { title: 'Forest Light Rays.mov', duration: '00:45', res: '4K', date: '2023-10-12', seed: 'forest' },
+  { title: 'Studio Portrait Setup.mp4', duration: '05:00', res: '1080p', date: '2023-10-10', seed: 'studio' },
 ];
-
-const firstScene = demoScenes[0];
-const demoConfig = {
-  scenes: demoScenes,
-  stateLabel: t(locale, 'home_demo_scene_state') ?? 'Live Preview',
-};
 ---
 
 <section class="full-bleed hero-stage reveal">
@@ -102,42 +64,144 @@ const demoConfig = {
       <p>{t(locale, 'home_demo_body')}</p>
     </header>
 
-    <article class="demo-shell" data-demo-shell>
+    <!-- SVG icon definitions for reuse -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+      <symbol id="ico-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect>
+      </symbol>
+      <symbol id="ico-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+      </symbol>
+      <symbol id="ico-laptop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"></path>
+      </symbol>
+      <symbol id="ico-hdd" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="22" y1="12" x2="2" y2="12"></line><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path><line x1="6" y1="16" x2="6.01" y2="16"></line><line x1="10" y1="16" x2="10.01" y2="16"></line>
+      </symbol>
+      <symbol id="ico-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+      </symbol>
+      <symbol id="ico-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </symbol>
+      <symbol id="ico-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </symbol>
+      <symbol id="ico-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line>
+      </symbol>
+      <symbol id="ico-sliders" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="21" y1="4" x2="14" y2="4"></line><line x1="10" y1="4" x2="3" y2="4"></line><line x1="21" y1="12" x2="12" y2="12"></line><line x1="8" y1="12" x2="3" y2="12"></line><line x1="21" y1="20" x2="16" y2="20"></line><line x1="12" y1="20" x2="3" y2="20"></line><line x1="14" y1="2" x2="14" y2="6"></line><line x1="8" y1="10" x2="8" y2="14"></line><line x1="16" y1="18" x2="16" y2="22"></line>
+      </symbol>
+    </svg>
+
+    <article class="demo-shell">
       <div class="demo-toolbar">
         <span class="dot red"></span>
         <span class="dot yellow"></span>
         <span class="dot green"></span>
-        <span class="demo-path" data-demo-path>{firstScene.path}</span>
+        <span class="demo-path">findit://library/all-source</span>
       </div>
 
       <div class="demo-body">
-        <aside class="demo-sidebar" aria-label="Demo scenarios">
-          {
-            demoScenes.map((scene, index) => (
-              <button
-                class:list={['demo-nav-item', index === 0 && 'active']}
-                data-demo-tab={scene.id}
-                aria-pressed={index === 0 ? 'true' : 'false'}
-                type="button"
-              >
-                {scene.name}
-              </button>
-            ))
-          }
+        <aside class="demo-sidebar" aria-label="Product preview sidebar">
+          <!-- Mode toggle -->
+          <div class="demo-mode-toggle">
+            <span class="is-active">Video</span>
+            <span>Audio</span>
+          </div>
+
+          <!-- Library -->
+          <div class="demo-sidebar-section">
+            <div class="demo-sidebar-label">Library</div>
+            <div class="demo-source-item is-active">
+              <svg class="demo-icon" style="color:#60a5fa"><use href="#ico-grid"/></svg>
+              <span class="demo-source-name">All Source</span>
+              <span class="demo-source-count">1,563</span>
+            </div>
+            <div class="demo-source-item">
+              <svg class="demo-icon" style="color:#facc15"><use href="#ico-star"/></svg>
+              <span class="demo-source-name">Favorites</span>
+              <span class="demo-source-count">12</span>
+            </div>
+          </div>
+
+          <!-- Sources -->
+          <div class="demo-sidebar-section">
+            <div class="demo-sidebar-label">Sources</div>
+            <div class="demo-source-item">
+              <svg class="demo-icon" style="color:#9ca3af"><use href="#ico-laptop"/></svg>
+              <span class="demo-source-name">Macintosh HD</span>
+              <span class="demo-source-count">340</span>
+            </div>
+            <div class="demo-source-item is-child">
+              <svg class="demo-icon" style="color:rgba(96,165,250,0.8)"><use href="#ico-folder"/></svg>
+              <span class="demo-source-name">Final Cut Projects</span>
+            </div>
+            <div class="demo-source-item">
+              <svg class="demo-icon" style="color:#60a5fa"><use href="#ico-hdd"/></svg>
+              <span class="demo-source-name">LaCie Rugged</span>
+              <span class="demo-source-badge">45%</span>
+            </div>
+            <div class="demo-source-item is-child">
+              <svg class="demo-icon" style="color:rgba(96,165,250,0.8)"><use href="#ico-folder"/></svg>
+              <span class="demo-source-name">Project Alpha</span>
+            </div>
+            <div class="demo-source-item is-child">
+              <svg class="demo-icon" style="color:rgba(96,165,250,0.8)"><use href="#ico-folder"/></svg>
+              <span class="demo-source-name">B-Roll Archives</span>
+            </div>
+            <div class="demo-source-item is-offline">
+              <svg class="demo-icon" style="color:#4b5563"><use href="#ico-alert"/></svg>
+              <span class="demo-source-name">SanDisk Extreme</span>
+              <span class="demo-source-count">420</span>
+            </div>
+          </div>
+
+          <!-- Tags -->
+          <div class="demo-sidebar-section">
+            <div class="demo-sidebar-label">Tags</div>
+            <div class="demo-tag-row">
+              <span class="demo-tag-dot" style="background:#ef4444"></span>
+              <span class="demo-tag-dot" style="background:#f97316"></span>
+              <span class="demo-tag-dot" style="background:#eab308"></span>
+              <span class="demo-tag-dot" style="background:#22c55e"></span>
+              <span class="demo-tag-dot" style="background:#3b82f6"></span>
+              <span class="demo-tag-dot" style="background:#a855f7"></span>
+              <span class="demo-tag-dot" style="background:#6b7280"></span>
+            </div>
+          </div>
         </aside>
 
-        <section class="demo-canvas" data-demo-tone={firstScene.hue}>
-          <div class="demo-spotlight"></div>
-          <div class="demo-scene-meta">
-            <strong data-demo-scene-name>{firstScene.name}</strong>
-            <span data-demo-scene-state>{demoConfig.stateLabel}</span>
-          </div>
-          <p class="demo-scene-summary" data-demo-summary>{firstScene.summary}</p>
-          <div class="demo-lines">
-            {firstScene.lineWidths.map((width) => <span style={`width: ${width}%;`}></span>)}
-          </div>
-          <div class="demo-chip-row" data-demo-chip-row>
-            {firstScene.chips.map((chip) => <span>{chip}</span>)}
+        <section class="demo-main">
+          <header class="demo-content-header">
+            <div class="demo-content-title-group">
+              <strong class="demo-content-title">All Source</strong>
+              <span class="demo-item-count">7 Items</span>
+            </div>
+            <div class="demo-search-bar">
+              <svg class="demo-icon-sm"><use href="#ico-search"/></svg>
+              <span>Search using natural language...</span>
+            </div>
+            <div class="demo-header-actions">
+              <span class="demo-action-btn"><svg class="demo-icon-sm"><use href="#ico-upload"/></svg></span>
+              <span class="demo-action-btn"><svg class="demo-icon-sm"><use href="#ico-sliders"/></svg></span>
+            </div>
+          </header>
+
+          <div class="demo-video-grid">
+            {demoVideos.map((v) => (
+              <div class="demo-video-card">
+                <div class="demo-thumb">
+                  <img src={`https://picsum.photos/seed/${v.seed}/480/270`} alt="" loading="lazy" width="480" height="270" />
+                  <span class="demo-duration">{v.duration}</span>
+                </div>
+                <div class="demo-card-meta">
+                  <span class="demo-card-title">{v.title}</span>
+                  <span class="demo-card-info">{v.res} &middot; {v.date}</span>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
       </div>
@@ -163,11 +227,3 @@ const demoConfig = {
     }
   </div>
 </section>
-
-<script id="home-demo-config" type="application/json" set:html={JSON.stringify(demoConfig)}></script>
-
-<script>
-  import { setupHomeDemo } from '../scripts/home-demo-bootstrap';
-
-  setupHomeDemo();
-</script>

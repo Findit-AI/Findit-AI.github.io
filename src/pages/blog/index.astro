@@ -26,8 +26,8 @@ const categories = Array.from(new Set(posts.map((post) => getCategoryName(locale
 
       {categories.length > 0 ? (
         <div class="blog-category-row" aria-label="Blog categories">
-          <button class="blog-category-chip is-active" type="button">All</button>
-          {categories.map((category) => <button class="blog-category-chip" type="button">{category}</button>)}
+          <button class="blog-category-chip is-active" data-category="all" type="button">All</button>
+          {categories.map((category) => <button class="blog-category-chip" data-category={category} type="button">{category}</button>)}
         </div>
       ) : null}
     </header>
@@ -38,7 +38,7 @@ const categories = Array.from(new Set(posts.map((post) => getCategoryName(locale
       ) : (
         <div class="blog-list-grid">
           {posts.map((entry) => (
-            <a class="blog-list-card" href={`/blog/${entry.slug}`}>
+            <a class="blog-list-card" href={`/blog/${entry.slug}`} data-card-category={getCategoryName(locale, entry.data.category)}>
               <p class="blog-list-card-meta">
                 <span>{getCategoryName(locale, entry.data.category)}</span>
                 <span aria-hidden="true">·</span>
@@ -56,4 +56,25 @@ const categories = Array.from(new Set(posts.map((post) => getCategoryName(locale
       )
     }
   </section>
+
+  <script>
+    const chips = document.querySelectorAll<HTMLButtonElement>('.blog-category-chip');
+    const cards = document.querySelectorAll<HTMLAnchorElement>('.blog-list-card');
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        chips.forEach((c) => c.classList.remove('is-active'));
+        chip.classList.add('is-active');
+
+        const category = chip.dataset.category;
+        cards.forEach((card) => {
+          if (category === 'all' || card.dataset.cardCategory === category) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
 </MainLayout>
