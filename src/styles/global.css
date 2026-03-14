@@ -968,6 +968,13 @@ dd {
   font-size: 13px;
 }
 
+.pricing-save-badge {
+  display: inline-block;
+  color: #34d399;
+  font-size: 13px;
+  font-weight: 600;
+}
+
 .pricing-feature-list {
   list-style: none;
   display: grid;

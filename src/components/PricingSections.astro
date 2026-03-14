@@ -29,15 +29,15 @@ const planMeta: Record<
     subtitleKey: 'pricing_plan_free_subtitle',
     ctaKey: 'pricing_cta_free',
   },
-  trial: {
-    titleKey: 'pricing_plan_trial_title',
-    subtitleKey: 'pricing_plan_trial_subtitle',
-    ctaKey: 'pricing_cta_trial',
-  },
   pro: {
     titleKey: 'pricing_plan_pro_title',
     subtitleKey: 'pricing_plan_pro_subtitle',
     ctaKey: 'pricing_cta_pro',
+  },
+  team: {
+    titleKey: 'pricing_plan_team_title',
+    subtitleKey: 'pricing_plan_team_subtitle',
+    ctaKey: 'pricing_cta_team',
   },
 };
 
@@ -55,6 +55,8 @@ const plans = getPrimaryPricingPlans().map((plan) => {
   const monthlyPeriod = monthlyAmount === 0 ? t(locale, 'pricing_forever') ?? 'forever' : t(locale, 'pricing_per_month') ?? '/ month';
   const yearlyPeriod = yearlyAmount === 0 ? t(locale, 'pricing_forever') ?? 'forever' : t(locale, 'pricing_per_year') ?? '/ year';
 
+  const monthlySave = monthlyAmount > 0 ? (monthlyAmount * 12 - yearlyAmount) / 100 : 0;
+
   return {
     ...plan,
     ...planMeta[plan.id],
@@ -62,6 +64,7 @@ const plans = getPrimaryPricingPlans().map((plan) => {
     yearlyLabel,
     monthlyPeriod,
     yearlyPeriod,
+    monthlySave,
     ctaHref: waitlistHref,
   };
 });
@@ -109,14 +112,15 @@ const plans = getPrimaryPricingPlans().map((plan) => {
             </span>
           </div>
 
-          <p class="pricing-card-meta">
-            {t(locale, 'pricing_budget_label')}: ${plan.monthlyBudgetUsd.toFixed(2)}
-          </p>
-          {plan.trialDays ? (
-            <p class="pricing-card-meta">
-              {t(locale, 'pricing_trial_days_label')}: {plan.trialDays}
+          {plan.monthlySave > 0 ? (
+            <p class="pricing-save-badge" data-pricing-save style="display:none">
+              {t(locale, 'pricing_save_label')} ${plan.monthlySave}
             </p>
           ) : null}
+
+          <p class="pricing-card-meta">
+            {t(locale, 'pricing_credits_label')}: {plan.monthlyCredits.toLocaleString(localeTag)}
+          </p>
 
           <ul class="pricing-feature-list">
             {plan.featureKeys.map((key) => (
@@ -143,6 +147,7 @@ const plans = getPrimaryPricingPlans().map((plan) => {
     const buttons = root.querySelectorAll('[data-pricing-cycle-button]');
     const amounts = root.querySelectorAll('[data-pricing-amount]');
     const periods = root.querySelectorAll('[data-pricing-period]');
+    const saveBadges = root.querySelectorAll('[data-pricing-save]');
 
     const setCycle = (cycle) => {
       if (cycle !== 'monthly' && cycle !== 'yearly') return;
@@ -161,6 +166,11 @@ const plans = getPrimaryPricingPlans().map((plan) => {
       periods.forEach((node) => {
         if (!(node instanceof HTMLElement)) return;
         node.textContent = node.dataset[cycle] ?? node.textContent;
+      });
+
+      saveBadges.forEach((node) => {
+        if (!(node instanceof HTMLElement)) return;
+        node.style.display = cycle === 'yearly' ? '' : 'none';
       });
     };
 

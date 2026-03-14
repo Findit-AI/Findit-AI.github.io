@@ -9,26 +9,37 @@ import {
 describe('pricing plans', () => {
   it('keeps canonical plan order aligned with product model', () => {
     const ids = getPricingPlans().map((plan) => plan.id);
-    expect(ids).toEqual(['free', 'trial', 'pro']);
+    expect(ids).toEqual(['free', 'pro', 'team']);
   });
 
-  it('exposes cloud budget limits from subscription model', () => {
+  it('exposes monthly credits from subscription model', () => {
     const plans = getPricingPlans();
-    expect(plans.find((plan) => plan.id === 'free')?.monthlyBudgetUsd).toBe(0);
-    expect(plans.find((plan) => plan.id === 'trial')?.monthlyBudgetUsd).toBe(1);
-    expect(plans.find((plan) => plan.id === 'pro')?.monthlyBudgetUsd).toBe(10);
+    expect(plans.find((plan) => plan.id === 'free')?.monthlyCredits).toBe(100);
+    expect(plans.find((plan) => plan.id === 'pro')?.monthlyCredits).toBe(1100);
+    expect(plans.find((plan) => plan.id === 'team')?.monthlyCredits).toBe(10100);
   });
 
   it('computes billing cycle amount for monthly and yearly views', () => {
     const monthly: BillingCycle = 'monthly';
     const yearly: BillingCycle = 'yearly';
 
-    expect(getPricingAmountCents('pro', monthly)).toBe(999);
-    expect(getPricingAmountCents('pro', yearly)).toBe(11988);
-    expect(getPricingAmountCents('trial', yearly)).toBe(0);
+    expect(getPricingAmountCents('pro', monthly)).toBe(1200);
+    expect(getPricingAmountCents('pro', yearly)).toBe(12000);
+    expect(getPricingAmountCents('team', monthly)).toBe(6000);
+    expect(getPricingAmountCents('team', yearly)).toBe(60000);
   });
 
-  it('returns only displayable primary plans for marketing page cards', () => {
-    expect(getPrimaryPricingPlans().map((plan) => plan.id)).toEqual(['free', 'pro']);
+  it('yearly price includes discount (not simply monthly x 12)', () => {
+    const proMonthly = getPricingAmountCents('pro', 'monthly');
+    const proYearly = getPricingAmountCents('pro', 'yearly');
+    expect(proYearly).toBeLessThan(proMonthly * 12);
+
+    const teamMonthly = getPricingAmountCents('team', 'monthly');
+    const teamYearly = getPricingAmountCents('team', 'yearly');
+    expect(teamYearly).toBeLessThan(teamMonthly * 12);
+  });
+
+  it('returns all plans for marketing page cards', () => {
+    expect(getPrimaryPricingPlans().map((plan) => plan.id)).toEqual(['free', 'pro', 'team']);
   });
 });

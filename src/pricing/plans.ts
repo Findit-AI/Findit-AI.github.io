@@ -1,11 +1,11 @@
-export type PlanId = 'free' | 'trial' | 'pro';
+export type PlanId = 'free' | 'pro' | 'team';
 export type BillingCycle = 'monthly' | 'yearly';
 
 export interface PricingPlan {
   id: PlanId;
   monthlyPriceCents: number;
-  monthlyBudgetUsd: number;
-  trialDays?: number;
+  yearlyPriceCents: number;
+  monthlyCredits: number;
   featureKeys: readonly string[];
   highlight?: boolean;
 }
@@ -14,36 +14,40 @@ const PRICING_PLANS: readonly PricingPlan[] = [
   {
     id: 'free',
     monthlyPriceCents: 0,
-    monthlyBudgetUsd: 0,
+    yearlyPriceCents: 0,
+    monthlyCredits: 100,
     featureKeys: [
       'pricing_feature_clip_search',
-      'pricing_feature_keyword_search',
       'pricing_feature_local_indexing',
+      'pricing_feature_portable_index',
       'pricing_feature_privacy_local',
+      'pricing_feature_free_credits',
     ],
   },
   {
-    id: 'trial',
-    monthlyPriceCents: 0,
-    monthlyBudgetUsd: 1,
-    trialDays: 14,
+    id: 'pro',
+    monthlyPriceCents: 1200,
+    yearlyPriceCents: 12000,
+    monthlyCredits: 1100,
     highlight: true,
     featureKeys: [
       'pricing_feature_everything_in_free',
       'pricing_feature_cloud_vision',
       'pricing_feature_cloud_embedding',
-      'pricing_feature_trial_days',
+      'pricing_feature_fallback_local',
+      'pricing_feature_extra_credits',
     ],
   },
   {
-    id: 'pro',
-    monthlyPriceCents: 999,
-    monthlyBudgetUsd: 10,
+    id: 'team',
+    monthlyPriceCents: 6000,
+    yearlyPriceCents: 60000,
+    monthlyCredits: 10100,
     featureKeys: [
-      'pricing_feature_everything_in_trial',
-      'pricing_feature_higher_budget',
-      'pricing_feature_priority_quality',
-      'pricing_feature_upgrade_ready',
+      'pricing_feature_everything_in_pro',
+      'pricing_feature_team_credits',
+      'pricing_feature_team_collab',
+      'pricing_feature_priority_support',
     ],
   },
 ] as const;
@@ -53,12 +57,12 @@ export function getPricingPlans(): PricingPlan[] {
 }
 
 export function getPrimaryPricingPlans(): PricingPlan[] {
-  return PRICING_PLANS.filter((plan) => plan.id !== 'trial');
+  return [...PRICING_PLANS];
 }
 
 export function getPricingAmountCents(planId: PlanId, cycle: BillingCycle): number {
   const plan = PRICING_PLANS.find((entry) => entry.id === planId);
   if (!plan) return 0;
-  if (cycle === 'yearly') return plan.monthlyPriceCents * 12;
+  if (cycle === 'yearly') return plan.yearlyPriceCents;
   return plan.monthlyPriceCents;
 }
