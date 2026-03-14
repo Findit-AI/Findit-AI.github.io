@@ -110,13 +110,12 @@ const plans = getPrimaryPricingPlans().map((plan) => {
             <span data-pricing-period data-monthly={plan.monthlyPeriod} data-yearly={plan.yearlyPeriod}>
               {plan.monthlyPeriod}
             </span>
+            {plan.monthlySave > 0 ? (
+              <span class="pricing-save-badge" data-pricing-save style="display:none">
+                {t(locale, 'pricing_save_label')} ${plan.monthlySave}
+              </span>
+            ) : null}
           </div>
-
-          {plan.monthlySave > 0 ? (
-            <p class="pricing-save-badge" data-pricing-save style="display:none">
-              {t(locale, 'pricing_save_label')} ${plan.monthlySave}
-            </p>
-          ) : null}
 
           <p class="pricing-card-meta">
             {t(locale, 'pricing_credits_label')}: {plan.monthlyCredits.toLocaleString(localeTag)}

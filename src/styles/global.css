@@ -864,19 +864,19 @@ dd {
 .pricing-hero {
   padding: var(--space-1) 0 0;
   position: relative;
-  overflow: hidden;
 }
 
 .pricing-hero::before {
   content: '';
   position: absolute;
   inset: -120px -80px auto;
-  height: 360px;
+  height: 480px;
   background:
-    radial-gradient(500px 180px at 30% 40%, rgba(231, 24, 60, 0.35), transparent 60%),
-    radial-gradient(620px 220px at 70% 20%, rgba(122, 26, 44, 0.28), transparent 62%),
-    linear-gradient(160deg, rgba(134, 18, 37, 0.26), rgba(16, 11, 14, 0));
+    radial-gradient(600px 280px at 30% 30%, rgba(96, 165, 250, 0.22), transparent 70%),
+    radial-gradient(720px 320px at 70% 15%, rgba(59, 130, 246, 0.14), transparent 70%);
   pointer-events: none;
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
 }
 
 .pricing-hero-inner {
@@ -969,10 +969,15 @@ dd {
 }
 
 .pricing-save-badge {
-  display: inline-block;
-  color: #34d399;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.12);
+  padding: 3px 10px;
+  border-radius: 999px;
+  align-self: center;
+  margin-left: auto;
+  white-space: nowrap;
 }
 
 .pricing-feature-list {
