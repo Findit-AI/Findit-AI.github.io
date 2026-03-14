@@ -864,19 +864,29 @@ dd {
 .pricing-hero {
   padding: var(--space-1) 0 0;
   position: relative;
+  overflow: hidden;
 }
 
 .pricing-hero::before {
   content: '';
   position: absolute;
-  inset: -120px -80px auto;
-  height: 480px;
+  inset: 0;
+  height: 100%;
   background:
     radial-gradient(600px 280px at 30% 30%, rgba(96, 165, 250, 0.22), transparent 70%),
     radial-gradient(720px 320px at 70% 15%, rgba(59, 130, 246, 0.14), transparent 70%);
   pointer-events: none;
-  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+}
+
+.pricing-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--bg-0));
+  pointer-events: none;
 }
 
 .pricing-hero-inner {
