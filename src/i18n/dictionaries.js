@@ -81,7 +81,7 @@ export const dictionaries = {
     home_demo_title: 'Product Walkthrough',
     home_demo_heading: 'A full-screen walkthrough from retrieval to timeline handoff.',
     home_demo_body:
-      'This section showcases a complete loop: query intent, ranked matches, and editor-ready handoff in one continuous flow.',
+      'See how FinDIT turns a rough idea into usable footage, then sends the selected clip straight into the edit timeline.',
     page_blog_title: 'Blog',
     page_resources_title: 'Resources',
     page_support_title: 'Support',
@@ -329,7 +329,7 @@ export const dictionaries = {
 
     home_demo_title: '产品演示',
     home_demo_heading: '全屏展示从检索到时间线交接的完整链路。',
-    home_demo_body: '该演示区展示一条完整路径：输入查询、匹配结果、导出到剪辑软件。',
+    home_demo_body: '查看 FinDIT 如何把一个模糊需求转成可用素材，并将选中片段直接送入剪辑时间线。',
     page_blog_title: '博客',
     page_resources_title: '资源',
     page_support_title: '支持',
